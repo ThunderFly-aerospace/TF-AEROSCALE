@@ -8,6 +8,7 @@ import sys
 import time
 from pymlab import config
 import logging
+import datetime
 
 """
 Show data from BRIDGEADC01 module. 
@@ -283,8 +284,11 @@ try:
         print scale.getStatus()
         time.sleep(0.1)
 
+    now = datetime.datetime.now()
+    filename = str(now.year)+"-"+str(now.month)+"-"+str(now.day)+"T"+str(now.hour)+":"+str(now.minute)+".csv"
+
     print "Zero scale calibration completed.. Start reading the data.."
-    print "Start writing data to weight.csv"
+    print "Start writing data to "+filename
 
     while True:
 	    scale.setMode(
@@ -323,7 +327,7 @@ try:
 
 	    channel2 = scale.getData()
 
-	    with open("weight.csv", "a") as f:
+	    with open(filename, "a") as f:
     		f.write(str(time.time())+","+str(channel1)+","+str(channel2)+"\r\n")
 
 except KeyboardInterrupt:
