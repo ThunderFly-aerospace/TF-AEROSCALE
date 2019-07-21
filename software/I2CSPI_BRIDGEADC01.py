@@ -284,46 +284,47 @@ try:
         time.sleep(0.1)
 
     print "Zero scale calibration completed.. Start reading the data.."
+    print "Start writing data to weight.csv"
 
-    scale.setMode(
-                 mode = scale.AD7730_SCONVERSION_MODE
-                ,polarity = scale.AD7730_UNIPOLAR_MODE
-                ,den = scale.AD7730_IODISABLE_MODE
-                ,iovalue = 0b00
-                ,data_length = scale.AD7730_24bitDATA_MODE
-                ,reference = scale.AD7730_REFERENCE_5V
-                ,input_range = scale.AD7730_80mVIR_MODE
-                ,clock_enable = scale.AD7730_MCLK_ENABLE_MODE
-                ,burn_out = scale.AD7730_BURNOUT_DISABLE
-                ,channel = scale.AD7730_AIN1P_AIN1N
-            )
+    while True:
+	    scale.setMode(
+	                 mode = scale.AD7730_SCONVERSION_MODE
+	                ,polarity = scale.AD7730_UNIPOLAR_MODE
+	                ,den = scale.AD7730_IODISABLE_MODE
+	                ,iovalue = 0b00
+	                ,data_length = scale.AD7730_24bitDATA_MODE
+	                ,reference = scale.AD7730_REFERENCE_5V
+	                ,input_range = scale.AD7730_80mVIR_MODE
+	                ,clock_enable = scale.AD7730_MCLK_ENABLE_MODE
+	                ,burn_out = scale.AD7730_BURNOUT_DISABLE
+	                ,channel = scale.AD7730_AIN1P_AIN1N
+	            )
 
-    while scale.IsBusy():            ## wait for RDY pin to go low to indicate end of callibration cycle. 
-        time.sleep(0.05)
+	    while scale.IsBusy():            ## wait for RDY pin to go low to indicate end of callibration cycle. 
+	        time.sleep(0.05)
 
-    channel1 = scale.getData()
+	    channel1 = scale.getData()
 
-    scale.setMode(
-                 mode = scale.AD7730_SCONVERSION_MODE
-                ,polarity = scale.AD7730_UNIPOLAR_MODE
-                ,den = scale.AD7730_IODISABLE_MODE
-                ,iovalue = 0b00
-                ,data_length = scale.AD7730_24bitDATA_MODE
-                ,reference = scale.AD7730_REFERENCE_5V
-                ,input_range = scale.AD7730_80mVIR_MODE
-                ,clock_enable = scale.AD7730_MCLK_ENABLE_MODE
-                ,burn_out = scale.AD7730_BURNOUT_DISABLE
-                ,channel = scale.AD7730_AIN2P_AIN2N
-            )
+	    scale.setMode(
+	                 mode = scale.AD7730_SCONVERSION_MODE
+	                ,polarity = scale.AD7730_UNIPOLAR_MODE
+	                ,den = scale.AD7730_IODISABLE_MODE
+	                ,iovalue = 0b00
+	                ,data_length = scale.AD7730_24bitDATA_MODE
+	                ,reference = scale.AD7730_REFERENCE_5V
+	                ,input_range = scale.AD7730_80mVIR_MODE
+	                ,clock_enable = scale.AD7730_MCLK_ENABLE_MODE
+	                ,burn_out = scale.AD7730_BURNOUT_DISABLE
+	                ,channel = scale.AD7730_AIN2P_AIN2N
+	            )
 
-    while scale.IsBusy():            ## wait for RDY pin to go low to indicate end of callibration cycle. 
-        time.sleep(0.05)
+	    while scale.IsBusy():            ## wait for RDY pin to go low to indicate end of callibration cycle. 
+	        time.sleep(0.05)
 
-    channel2 = scale.getData()
+	    channel2 = scale.getData()
 
-    data = np.array([channel1, channel2])
-    print data
+	    with open("weight.csv", "a") as f:
+    		f.write(str(time.time())+","+str(channel1)+","+str(channel2)+"\r\n")
 
 except KeyboardInterrupt:
     sys.exit(0)
-
