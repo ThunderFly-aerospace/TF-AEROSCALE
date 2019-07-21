@@ -1,0 +1,3 @@
+[submodule "cad/src/lib/stdlib"]
+	path = cad/src/lib/stdlib
+	url = git@github.com:ThunderFly-aerospace/Openscad_stdlib.git
