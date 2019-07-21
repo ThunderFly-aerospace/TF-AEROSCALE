@@ -1,5 +1,5 @@
-STL_DIR=../../STL
-IMG_DIR=../../../doc/img
+STL_DIR=../STL
+IMG_DIR=../../doc/img
 SRC_DIR=.
 PLATE_DIMMENSIONS=120
 SIMARRANGE=/usr/local/bin/simarrange
@@ -20,7 +20,7 @@ default: $(TARGETS)
 $(STL_DIR)/%.stl: $(SRC_DIR)/%.scad
 	$(OPENSCAD_APP) -m make -o $@ $<
 	$(STLSORT) $@ || :
-	
+
 images: $(IMAGES)
 
 $(IMG_DIR)/%.png: $(SRC_DIR)/%.scad
@@ -28,7 +28,7 @@ $(IMG_DIR)/%.png: $(SRC_DIR)/%.scad
 
 arrange: default
 	 $(SIMARRANGE) -x $(PLATE_DIMMENSIONS) -y $(PLATE_DIMMENSIONS) $(ARRANGE_TARGETS)
-	 
+
 clean:
 	rm -f calibration.stl
 	rm -f $(STL_DIR)/*.stl

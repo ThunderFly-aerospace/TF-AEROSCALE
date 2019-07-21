@@ -1,5 +1,5 @@
-include <../../parameters.scad>
-use <../lib/rotor_joint.scad>
+include <../parameters.scad>
+use <./lib/rotor_joint.scad>
 
 module 888_1020(draft = true){
 
@@ -81,7 +81,7 @@ module 888_1020(draft = true){
                         cube([joint_size_x + joint_wall_thickness*2 - back_part_crop, joint_size_y + joint_wall_thickness*2, 7]);
 
                 }
-                
+
                 hull() {
                     translate([-(joint_size_x + joint_wall_thickness*2)/2 + back_part_crop, - (joint_size_y  + joint_wall_thickness*2)/2, -plate_bearing_center_distance])
                         cube([joint_size_x + joint_wall_thickness*2 - back_part_crop, joint_size_y + joint_wall_thickness*2, 7]);
@@ -90,7 +90,7 @@ module 888_1020(draft = true){
                         rotor_joint(2, thickness=joint_size);
                 }
     // Vymezovaci podlozka pod motor, misto hlinikove 6.5mm silne podlozky
-                
+
 
 
                     // Otvory pro pridelani motoru
@@ -112,7 +112,7 @@ module 888_1020(draft = true){
                     cylinder(d=M4_screw_diameter*2, h=200, $fn=20);
                 }
             }
-            
+
             //otvor pro matku sroubu rotoru
             translate([0, 0, -joint_size-plate_bearing_center_distance-global_clearance/2])
                 cylinder(d=nut_diameter, h=nut_height+global_clearance/2);

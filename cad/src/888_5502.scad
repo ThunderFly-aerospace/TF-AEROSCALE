@@ -1,4 +1,4 @@
-include <../../parameters.scad>
+include <../parameters.scad>
 use <888_5007.scad>
 use <888_5008.scad>
 use <888_5006.scad>

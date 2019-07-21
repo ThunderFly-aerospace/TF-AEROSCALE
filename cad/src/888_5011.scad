@@ -1,5 +1,5 @@
-include <../../parameters.scad>
-use <../lib/ALU_profile_holder_top.scad>
+include <../parameters.scad>
+use <./lib/ALU_profile_holder_top.scad>
 
 module 888_5011() {
     height = ALU_profile_width+608_bearing_outer_diameter-2+ALU_profile_holder_wall_thickness*2+5;

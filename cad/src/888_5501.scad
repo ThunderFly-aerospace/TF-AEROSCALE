@@ -1,5 +1,5 @@
-include <../../parameters.scad>
-use <../lib/ALU_profile.scad>
+include <../parameters.scad>
+use <./lib/ALU_profile.scad>
 use <888_5001.scad>
 use <888_5002.scad>
 use <888_5003.scad>

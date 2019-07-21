@@ -1,5 +1,5 @@
-include <../../parameters.scad>
-use <../lib/ALU_profile_holder_side.scad>
+include <../parameters.scad>
+use <./lib/ALU_profile_holder_side.scad>
 
 module 888_5001() {
     

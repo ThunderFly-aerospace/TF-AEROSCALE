@@ -1,5 +1,5 @@
-include <../../parameters.scad>
-use <../lib/rotor_joint.scad>
+include <../parameters.scad>
+use <./lib/rotor_joint.scad>
 
 
 module 888_5009() {
@@ -22,7 +22,7 @@ module 888_5009() {
                         cylinder(d = bearing_outer_diameter + Bwall*2, h = bearing_shaft_length + bearing_shaft_shift + rod_size/2);
             //       translate([-rod_size/2, -bearing_outer_diameter/2 - Bwall, -BaseThickness])
             //            cube([bearing_shaft_length + bearing_shaft_shift + rod_size/2, bearing_outer_diameter + Bwall*2, bearing_outer_diameter/2 + Bwall]);
-                    
+
                 translate([-rod_size/2, -bearing_outer_diameter/2 - Bwall, -BaseThickness])
                         cube([bearing_outer_diameter, bearing_outer_diameter + Bwall*2, bearing_outer_diameter + Bwall*2]);
                 }

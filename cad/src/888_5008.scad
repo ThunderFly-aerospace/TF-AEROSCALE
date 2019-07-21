@@ -1,6 +1,6 @@
-include <../../parameters.scad>
-use <../lib/ALU_joint_B.scad>
-use <../lib/rotor_joint.scad>
+include <../parameters.scad>
+use <./lib/ALU_joint_B.scad>
+use <./lib/rotor_joint.scad>
 
 module 888_5008() {
     translate([0, 0, -12/2])
@@ -9,12 +9,12 @@ module 888_5008() {
     difference() {
         translate([0, 0, 35])
             cube([ALU_profile_width+ALU_profile_holder_wall_thickness*2, ALU_profile_width+ALU_profile_holder_wall_thickness*2, 70], center=true);
-        
+
         hull() {
             translate([0, 0, ALU_profile_width/2])
                 rotate([90, 0, 0])
                     cylinder(d=M6_square_nut_diameter+5, h=ALU_profile_width+ALU_profile_holder_wall_thickness*2+0.1, center=true, $fn=50);
-            
+
             translate([0, 0, ALU_profile_width/2+40])
                 rotate([90, 0, 0])
                     cylinder(d=M6_square_nut_diameter+5, h=ALU_profile_width+ALU_profile_holder_wall_thickness*2+0.1, center=true, $fn=50);

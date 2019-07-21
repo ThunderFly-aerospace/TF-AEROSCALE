@@ -1,6 +1,6 @@
-include <../../parameters.scad>
-use <../lib/ALU_profile_holder_top.scad>
-use <../lib/ALU_joint_A.scad>
+include <../parameters.scad>
+use <./lib/ALU_profile_holder_top.scad>
+use <./lib/ALU_joint_A.scad>
 
 module 888_5007() {
     height = 40;

@@ -1,4 +1,4 @@
-include <../../parameters.scad>
+include <../parameters.scad>
 
 module 888_5002() {
     joint_width = 8;
