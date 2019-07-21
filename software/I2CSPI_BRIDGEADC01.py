@@ -327,6 +327,8 @@ try:
 
 	    channel2 = scale.getData()
 
+	    print str(channel1)+"  "+str(channel2)
+
 	    with open(filename, "a") as f:
     		f.write(str(time.time())+","+str(channel1)+","+str(channel2)+"\r\n")
 
