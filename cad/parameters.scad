@@ -186,3 +186,6 @@ LO_spodni_prumer=17.2;
 LO_vyska_bez_krytu=15;
 S01_tolerance_zavit=1.5;
 R01_vyska_prekryti_statoru=10;
+
+g3_0_cone1 = 70;
+g3_0_srcew_dist = 55;
