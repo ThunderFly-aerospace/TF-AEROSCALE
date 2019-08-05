@@ -8,7 +8,6 @@ import sys
 import time
 from pymlab import config
 import logging
-import datetime
 
 """
 Show data from BRIDGEADC01 module. 
@@ -284,53 +283,56 @@ try:
         print scale.getStatus()
         time.sleep(0.1)
 
-    now = datetime.datetime.now()
-    filename = str(now.year)+"-"+str(now.month)+"-"+str(now.day)+"T"+str(now.hour)+":"+str(now.minute)+".csv"
-
     print "Zero scale calibration completed.. Start reading the data.."
-    print "Start writing data to "+filename
-
-    while True:
-	    scale.setMode(
-	                 mode = scale.AD7730_SCONVERSION_MODE
-	                ,polarity = scale.AD7730_UNIPOLAR_MODE
-	                ,den = scale.AD7730_IODISABLE_MODE
-	                ,iovalue = 0b00
-	                ,data_length = scale.AD7730_24bitDATA_MODE
-	                ,reference = scale.AD7730_REFERENCE_5V
-	                ,input_range = scale.AD7730_80mVIR_MODE
-	                ,clock_enable = scale.AD7730_MCLK_ENABLE_MODE
-	                ,burn_out = scale.AD7730_BURNOUT_DISABLE
-	                ,channel = scale.AD7730_AIN1P_AIN1N
-	            )
-
-	    while scale.IsBusy():            ## wait for RDY pin to go low to indicate end of callibration cycle. 
-	        time.sleep(0.05)
-
-	    channel1 = scale.getData()
-
-	    scale.setMode(
-	                 mode = scale.AD7730_SCONVERSION_MODE
-	                ,polarity = scale.AD7730_UNIPOLAR_MODE
-	                ,den = scale.AD7730_IODISABLE_MODE
-	                ,iovalue = 0b00
-	                ,data_length = scale.AD7730_24bitDATA_MODE
-	                ,reference = scale.AD7730_REFERENCE_5V
-	                ,input_range = scale.AD7730_80mVIR_MODE
-	                ,clock_enable = scale.AD7730_MCLK_ENABLE_MODE
-	                ,burn_out = scale.AD7730_BURNOUT_DISABLE
-	                ,channel = scale.AD7730_AIN2P_AIN2N
-	            )
-
-	    while scale.IsBusy():            ## wait for RDY pin to go low to indicate end of callibration cycle. 
-	        time.sleep(0.05)
-
-	    channel2 = scale.getData()
-
-	    print str(channel1)+"  "+str(channel2)
-
-	    with open(filename, "a") as f:
-    		f.write(str(time.time())+","+str(channel1)+","+str(channel2)+"\r\n")
 
 except KeyboardInterrupt:
     sys.exit(0)
+
+def get_data1():
+    try:
+        scale.setMode(
+                mode = scale.AD7730_SCONVERSION_MODE
+            ,polarity = scale.AD7730_UNIPOLAR_MODE
+            ,den = scale.AD7730_IODISABLE_MODE
+            ,iovalue = 0b00
+            ,data_length = scale.AD7730_24bitDATA_MODE
+            ,reference = scale.AD7730_REFERENCE_5V
+            ,input_range = scale.AD7730_80mVIR_MODE
+            ,clock_enable = scale.AD7730_MCLK_ENABLE_MODE
+            ,burn_out = scale.AD7730_BURNOUT_DISABLE
+            ,channel = scale.AD7730_AIN1P_AIN1N
+        )
+
+        while scale.IsBusy():            ## wait for RDY pin to go low to indicate end of callibration cycle. 
+            time.sleep(0.05)
+
+        channel1 = scale.getData()
+        return channel1
+
+    except:
+        print("error")
+
+def get_data2():
+    try:
+        scale.setMode(
+                mode = scale.AD7730_SCONVERSION_MODE
+            ,polarity = scale.AD7730_UNIPOLAR_MODE
+            ,den = scale.AD7730_IODISABLE_MODE
+            ,iovalue = 0b00
+            ,data_length = scale.AD7730_24bitDATA_MODE
+            ,reference = scale.AD7730_REFERENCE_5V
+            ,input_range = scale.AD7730_80mVIR_MODE
+            ,clock_enable = scale.AD7730_MCLK_ENABLE_MODE
+            ,burn_out = scale.AD7730_BURNOUT_DISABLE
+            ,channel = scale.AD7730_AIN2P_AIN2N
+        )
+
+        while scale.IsBusy():            ## wait for RDY pin to go low to indicate end of callibration cycle. 
+            time.sleep(0.05)
+
+        channel2 = scale.getData()
+
+        return channel2
+
+    except:
+        print("error")
