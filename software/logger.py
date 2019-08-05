@@ -21,6 +21,18 @@ def channel_1():
 def channel_2():
     return I2CSPI_BRIDGEADC01.get_data2() + zero_calibration_2
 
+def ch1_calibrated():
+    ch1_calibration_number = int(config.get('channel_1', 'ch1_calibration_number'))
+    ch1_calibration_weight = int(config.get('channel_1', 'ch1_calibration_weight'))
+
+    return ch1_calibration_weight * channel_1() / ch1_calibration_number
+
+def ch2_calibrated():
+    ch2_calibration_number = int(config.get('channel_2', 'ch2_calibration_number'))
+    ch2_calibration_weight = int(config.get('channel_2', 'ch2_calibration_weight'))
+
+    return ch2_calibration_weight * channel_2() / ch2_calibration_number
+
 now = datetime.datetime.now()
 filename = str(now.year)+"-"+str(now.month)+"-"+str(now.day)+"T"+str(now.hour)+":"+str(now.minute)+".csv"
 
@@ -34,8 +46,15 @@ print("Start logging into "+filename)
 try:
     while True:
         with open(filename, "a") as file:
-            channel1 = channel_1()
-            channel2 = channel_2()
+            if config.get('channel_1', 'ch1_raw_data') == 'false':
+                channel1 = ch1_calibrated()
+            else:
+                channel1 = channel_1()
+
+            if config.get('channel_2', 'ch2_raw_data') == 'false':
+                channel2 = ch2_calibrated()
+            else:
+                channel2 = channel_2()
 
             print(str(channel1)+"   "+str(channel2))
 
