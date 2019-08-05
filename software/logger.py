@@ -1,20 +1,25 @@
 #! usr/bin/python
 
+from ConfigParser import SafeConfigParser
 import I2CSPI_BRIDGEADC01
 import datetime
 import time
 import os
 import sys
 
+cfg_file = "config.ini"
 
-zero_offset_1 = 0 - I2CSPI_BRIDGEADC01.get_data1()
-zero_offset_2 = 0 - I2CSPI_BRIDGEADC01.get_data2()
+config = SafeConfigParser()
+config.read(cfg_file)
+
+zero_calibration_1 = 0 - I2CSPI_BRIDGEADC01.get_data1()
+zero_calibration_2 = 0 - I2CSPI_BRIDGEADC01.get_data2()
 
 def channel_1():
-    return I2CSPI_BRIDGEADC01.get_data1() + zero_offset_1
+    return I2CSPI_BRIDGEADC01.get_data1() + zero_calibration_1
 
 def channel_2():
-    return I2CSPI_BRIDGEADC01.get_data2() + zero_offset_2
+    return I2CSPI_BRIDGEADC01.get_data2() + zero_calibration_2
 
 now = datetime.datetime.now()
 filename = str(now.year)+"-"+str(now.month)+"-"+str(now.day)+"T"+str(now.hour)+":"+str(now.minute)+".csv"

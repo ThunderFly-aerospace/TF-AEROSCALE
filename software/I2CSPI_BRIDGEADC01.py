@@ -291,7 +291,7 @@ except KeyboardInterrupt:
 def get_data1():
     try:
         scale.setMode(
-                mode = scale.AD7730_SCONVERSION_MODE
+             mode = scale.AD7730_SCONVERSION_MODE
             ,polarity = scale.AD7730_UNIPOLAR_MODE
             ,den = scale.AD7730_IODISABLE_MODE
             ,iovalue = 0b00
@@ -315,7 +315,7 @@ def get_data1():
 def get_data2():
     try:
         scale.setMode(
-                mode = scale.AD7730_SCONVERSION_MODE
+             mode = scale.AD7730_SCONVERSION_MODE
             ,polarity = scale.AD7730_UNIPOLAR_MODE
             ,den = scale.AD7730_IODISABLE_MODE
             ,iovalue = 0b00
