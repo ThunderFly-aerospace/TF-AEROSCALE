@@ -1,6 +1,4 @@
-use <lib/naca4.scad>
 include <../parameters.scad>
-use <lib/curvedPipe.scad>
 draft = true;
 $fs =  draft ? 50 :100;
 
