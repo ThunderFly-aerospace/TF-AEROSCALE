@@ -155,7 +155,7 @@ strain_gauge_length = 75.1;
 strain_gauge_screw_distance = 10;
 
 //ALU profile
-ALU_profile_width = 30.3;
+ALU_profile_width = 30.5;
 ALU_profile_holder_wall_thickness = 3;
 ALU_profile_groove_width = 8;
 
