@@ -1,4 +1,4 @@
-#! usr/bin/python
+#!/usr/bin/python
 
 from ConfigParser import SafeConfigParser
 import I2CSPI_BRIDGEADC01
