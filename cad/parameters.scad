@@ -168,6 +168,7 @@ KSTM08_flange_thickness = 6;         //h3
 KSTM08_case_width = 9;               //C1
 KSTM08_case_length = 47;             //a
 KSTM08_ball_width = 12;              //B
+KSTM08_ball_hole_diameter = 7.85;    //d1
 
 
 //ložiska pro malý rotor
