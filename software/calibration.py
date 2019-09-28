@@ -11,13 +11,13 @@ config.read(cfg_file)
 ch_1_calibration = raw_input("channel 1 calibrate (y/n): ").lower()
 
 if ch_1_calibration == "y":
-    raw_input("release channel 1, then press any key")
+    raw_input("release channel 1, then press enter")
 
     zero_calibration_1 = 0 - I2CSPI_BRIDGEADC01.get_data1()
 
     calibration_weight = raw_input("type calibration weight in grams: ")
 
-    raw_input("put it on channel 1, then press any key")
+    raw_input("put it on channel 1, then press enter")
 
     weight_number = 0
     print("starting calibration...")
@@ -40,13 +40,13 @@ if ch_1_calibration == "y":
 ch_2_calibration = raw_input("channel 2 calibrate (y/n): ").lower()
 
 if ch_2_calibration == "y":
-    raw_input("release channel 2, then press any key")
+    raw_input("release channel 2, then press enter")
 
     zero_calibration_2 = 0 - I2CSPI_BRIDGEADC01.get_data2()
 
     calibration_weight = raw_input("type calibration weight in grams: ")
 
-    raw_input("put it on channel 2, then press any key")
+    raw_input("put it on channel 2, then press enter")
 
     weight_number = 0
     print("starting calibration...")
