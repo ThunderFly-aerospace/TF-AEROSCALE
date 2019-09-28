@@ -24,10 +24,10 @@ module 888_5002() {
             cube([joint_width, strain_gauge_width*2, strain_gauge_width*3], center=true);
 
         translate([0, strain_gauge_screw_distance/2, 0])
-            cylinder(d=M4_screw_diatance, h=10, center=true, $fn=20);
+            cylinder(d=M4_screw_diameter, h=10, center=true, $fn=20);
 
         translate([0, -strain_gauge_screw_distance/2, 0])
-            cylinder(d=M4_screw_diatance, h=10, center=true, $fn=20);
+            cylinder(d=M4_screw_diameter, h=10, center=true, $fn=20);
 
         translate([0, 0, strain_gauge_width])
             rotate([90, 0, 0])
