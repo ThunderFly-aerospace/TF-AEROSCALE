@@ -43,7 +43,7 @@ module 888_3006(draft){
             cube([g3_0_cone1*2.2+5, ALU_profile_width, 100], center=true);
 
         // srouby pro pridelani na strechu
-        for (i = [1:4])
+    #    for (i = [1:4])
                 {
                     rotate([0, 0, i*90])
                     {
