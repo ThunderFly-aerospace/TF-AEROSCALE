@@ -229,16 +229,16 @@ cfg = config.Config(
 
 cfg.initialize()
 
-print "SPI weight scale sensor with SPI interface. The interface is connected to the I2CSPI module which translates signalls. \r\n"
+print("SPI weight scale sensor with SPI interface. The interface is connected to the I2CSPI module which translates signalls. \r\n")
 
 spi = cfg.get_device("spi")
 
 try:
-    print "SPI configuration.."
+    print("SPI configuration..")
     spi.SPI_config(spi.I2CSPI_MSB_FIRST| spi.I2CSPI_MODE_CLK_IDLE_LOW_DATA_EDGE_LEADING| spi.I2CSPI_CLK_461kHz)
     spi.GPIO_config(spi.I2CSPI_SS2 | spi.I2CSPI_SS3, spi.SS2_INPUT | spi.SS3_INPUT)
 
-    print "Weight scale configuration.."
+    print("Weight scale configuration..")
     scale = BRIDGEADC01(spi.I2CSPI_SS0)
     scale.reset()
 
@@ -255,13 +255,13 @@ try:
                     ,burn_out = scale.AD7730_BURNOUT_DISABLE
                     ,channel = scale.AD7730_AIN1P_AIN1N
 				)
-    print "Internal Full scale calibration started"
+    print("Internal Full scale calibration started")
 
     while scale.IsBusy():            ## wait for RDY pin to go low to indicate end of callibration cycle. 
-        print scale.single_read(scale.AD7730_MODE_REG)
+        print(scale.single_read(scale.AD7730_MODE_REG))
         time.sleep(0.1)
 
-    print "Full scale calibration completed. Start zero scale calibration"
+    print("Full scale calibration completed. Start zero scale calibration")
 
 
 
@@ -280,10 +280,10 @@ try:
                 )
 
     while scale.IsBusy():            ## wait for RDY pin to go low to indicate end of callibration cycle. 
-        print scale.getStatus()
+        print(scale.getStatus())
         time.sleep(0.1)
 
-    print "Zero scale calibration completed.. Start reading the data.."
+    print("Zero scale calibration completed.. Start reading the data..")
 
 except KeyboardInterrupt:
     sys.exit(0)

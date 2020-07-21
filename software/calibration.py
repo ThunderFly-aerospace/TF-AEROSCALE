@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from ConfigParser import SafeConfigParser
+from configparser import SafeConfigParser
 import I2CSPI_BRIDGEADC01
 
 cfg_file = "logger.ini"
@@ -33,7 +33,7 @@ if ch_1_calibration == "y":
     with open(cfg_file, "w") as ini_file:
         config.write(ini_file)
 
-    print "\ncalibration done!"
+    print("\ncalibration done!")
 
 
 
@@ -62,4 +62,4 @@ if ch_2_calibration == "y":
     with open(cfg_file, "w") as ini_file:
         config.write(ini_file)
 
-    print "\ncalibration done!"
+    print("\ncalibration done!")
