@@ -1,6 +1,6 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
-from ConfigParser import SafeConfigParser
+import configparser
 import I2CSPI_BRIDGEADC01
 import datetime
 import time
@@ -10,9 +10,17 @@ import sys
 cfg_file = "logger.ini"
 gravity = 9.81
 
-config = SafeConfigParser()
+config = configparser.ConfigParser()
 config.read(cfg_file)
 
+# sensor calibration: 2 measurements at zero scale and full scale
+# The zero scale reading is stored in Offset Calibration Register
+# The full scale reading is stored in Gain Calibration Register
+# (The zero scale calibration is recommended to be preformed first)
+
+# sensor_read = (sensor_input - calibration_subtract) * calibration_gain
+
+'''
 if config.get("channel_1", "zero_calibration") == 'true':
     zero_calibration_1 = 0 - I2CSPI_BRIDGEADC01.get_data1()
 
@@ -115,3 +123,5 @@ try:
 
 except KeyboardInterrupt:
     sys.exit(0)
+
+'''

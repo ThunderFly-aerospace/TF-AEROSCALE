@@ -219,7 +219,7 @@ lines.transform = scene.STTransform(scale=(1, 1/8.))
 
 cfg = config.Config(
     i2c = {
-        "port": 8,
+        "port": 10,
     },
 
     bus = [
