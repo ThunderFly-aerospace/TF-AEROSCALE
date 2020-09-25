@@ -255,13 +255,10 @@ try:
                     ,burn_out = scale.AD7730_BURNOUT_DISABLE
                     ,channel = scale.AD7730_AIN1P_AIN1N
 				)
-    print("Internal Full scale calibration started")
 
     while scale.IsBusy():            ## wait for RDY pin to go low to indicate end of callibration cycle. 
         print(scale.single_read(scale.AD7730_MODE_REG))
         time.sleep(0.1)
-
-    print("Full scale calibration completed. Start zero scale calibration")
 
 
 
@@ -283,7 +280,6 @@ try:
         print(scale.getStatus())
         time.sleep(0.1)
 
-    print("Zero scale calibration completed.. Start reading the data..")
 
 except KeyboardInterrupt:
     sys.exit(0)
@@ -310,7 +306,7 @@ def get_data1():
         return channel1
 
     except:
-        print("error")
+        print("error getting data1")
 
 def get_data2():
     try:
@@ -335,4 +331,4 @@ def get_data2():
         return channel2
 
     except:
-        print("error")
+        print("error getting data2")

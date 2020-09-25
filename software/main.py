@@ -7,18 +7,156 @@ import time
 import os
 import sys
 
-cfg_file = "logger.ini"
+cfg_file = "config.ini"
 gravity = 9.81
 
 config = configparser.ConfigParser()
 config.read(cfg_file)
 
-# sensor calibration: 2 measurements at zero scale and full scale
-# The zero scale reading is stored in Offset Calibration Register
-# The full scale reading is stored in Gain Calibration Register
-# (The zero scale calibration is recommended to be preformed first)
+calibration_cycles = int(config["general"]["calibration_cycles"])
 
-# sensor_read = (sensor_input - calibration_subtract) * calibration_gain
+# Sensor calibration: 2 measurements at zero scale and full scale
+# The zero scale reading is stored in Offset Calibration Register.
+# The full scale reading is stored in Gain Calibration Register.
+# (The zero scale calibration is recommended to be preformed first)
+# The zero scale calibration must be performed after every start.
+# The full scale calibration should be performed after every start
+# in order to get correct readings from sensor.
+
+# sensor_read = (sensor_input - calibration_offset) * calibration_gain
+
+
+
+
+
+def Calibration():
+    # Zero scale calibration channel 1_______________________________________________________
+
+    if config["channel_1"]["zero_calibration"] == "true":
+
+        print("Channel 1 ZERO scale calibration (Set sensor to default position)")
+        input("Press key to continue...")
+
+        read_sum = 0
+        for x in range (calibration_cycles):
+            actual_read = I2CSPI_BRIDGEADC01.get_data1()
+            read_sum += actual_read
+            print(actual_read)
+
+        print("Channel 1 offset set on: %d" %(read_sum / calibration_cycles))
+
+        channel_1_offset = read_sum / calibration_cycles
+
+        #TODO: not writing to config file
+        config["channel_1"]["calibration_offset"] = str(channel_1_offset)
+
+    else:
+
+        print("Channel 1 offset set on: %s" %config["channel_1"]["calibration_offset"])
+
+        channel_1_offset = int(config["channel_1"]["calibration_offset"])
+
+
+
+    # Full scale calibration channel 1_______________________________________________________
+
+    if config["channel_1"]["full_calibration"] == "true":
+
+        print("Channel 1 FULL scale calibration (Set sensor to fully loaded position)")
+        input("Press key to continue...")
+
+        read_sum = 0
+        for x in range (calibration_cycles):
+            actual_read = I2CSPI_BRIDGEADC01.get_data1()
+            read_sum += actual_read
+            print(actual_read)
+
+        print("Channel 1 gain set on: %d" %((read_sum / calibration_cycles) - channel_1_offset))
+
+        channel_1_gain = (read_sum / calibration_cycles) - channel_1_offset
+
+        #TODO: not writing to config file
+        config["channel_1"]["calibration_gain"] = str(channel_1_gain)
+
+    else:
+
+        print("Channel 1 gain set on: %s" %config["channel_1"]["calibration_gain"])
+
+        channel_1_gain = int(config["channel_1"]["calibration_gain"])
+
+
+
+
+
+
+    if int(config["general"]["number_of_channels"]) > 1:
+
+        # Zero scale calibration channel 2_______________________________________________________
+
+        if config["channel_2"]["zero_calibration"] == "true":
+
+            print("Channel 2 ZERO scale calibration (Set sensor to default position)")
+            input("Press key to continue...")
+
+            read_sum = 0
+            for x in range (calibration_cycles):
+                actual_read = I2CSPI_BRIDGEADC01.get_data2()
+                read_sum += actual_read
+                print(actual_read)
+
+            print("Channel 2 offset set on: %d" %(read_sum / calibration_cycles))
+
+            channel_2_offset = read_sum / calibration_cycles
+
+            #TODO: not writing to config file
+            config["channel_2"]["calibration_offset"] = str(channel_2_offset)
+
+        else:
+
+            print("Channel 2 offset set on: %s" %config["channel_2"]["calibration_offset"])
+
+            channel_2_offset = int(config["channel_2"]["calibration_offset"])
+
+
+
+        # Full scale calibration channel 2_______________________________________________________
+
+        if config["channel_2"]["full_calibration"] == "true":
+
+            print("Channel 2 FULL scale calibration (Set sensor to fully loaded position)")
+            input("Press key to continue...")
+
+            read_sum = 0
+            for x in range (calibration_cycles):
+                actual_read = I2CSPI_BRIDGEADC01.get_data2()
+                read_sum += actual_read
+                print(actual_read)
+
+            print("Channel 2 gain set on: %d" %((read_sum / calibration_cycles) - channel_2_offset))
+
+            channel_2_gain = (read_sum / calibration_cycles) - channel_2_offset
+
+            #TODO: not writing to config file
+            config["channel_2"]["calibration_gain"] = str(channel_2_gain)
+
+        else:
+
+            print("Channel 2 gain set on: %s" %config["channel_2"]["calibration_gain"])
+
+            channel_2_gain = int(config["channel_2"]["calibration_gain"])
+
+
+
+
+
+print("Starting program...")
+
+Calibration()
+
+
+
+
+
 
 '''
 if config.get("channel_1", "zero_calibration") == 'true':
