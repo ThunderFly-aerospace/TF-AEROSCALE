@@ -1,4 +1,4 @@
-# force_balance
+# Force balance
 A device to measure of lift and drag of rotor.
 
 
