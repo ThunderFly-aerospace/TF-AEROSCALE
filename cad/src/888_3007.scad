@@ -3,7 +3,7 @@ draft = false;
 $fn =  draft ? 50 :100;
 platform_height = 52;
 
-module 888_3006(draft){
+module 888_3007(draft){
 
     height = ALU_profile_width;
     magnet_d = 80;
@@ -66,4 +66,4 @@ module 888_3006(draft){
     }
 }
 
-888_3006(draft);
+888_3007(draft);
