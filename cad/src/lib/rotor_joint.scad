@@ -17,7 +17,7 @@ module rotor_joint(mode, thickness=10) {
         difference() {
             translate([(ALU_profile_width/2+ALU_profile_holder_wall_thickness+M4_screw_diameter), (ALU_profile_width/2+ALU_profile_holder_wall_thickness+M4_screw_diameter), 0])
                 cylinder(d=M4_screw_diameter, h=thickness+0.1, center=true, $fn=20);
-            translate([(ALU_profile_width/2+ALU_profile_holder_wall_thickness+M4_screw_diameter), (ALU_profile_width/2+ALU_profile_holder_wall_thickness+M4_screw_diameter), thickness/2])
+            translate([(ALU_profile_width/2+ALU_profile_holder_wall_thickness+M4_screw_diameter), (ALU_profile_width/2+ALU_profile_holder_wall_thickness+M4_screw_diameter), thickness/2+.01])
                 cylinder(d=M4_screw_diameter, h=1, $fn=20); 
         }
 
