@@ -6,16 +6,16 @@ module 888_5002() {
     difference() {
         hull() {
             translate([0, 0, -1])
-                cube([strain_gauge_width*1.5, strain_gauge_screw_distance*1.75, 2], center=true);
+                cube([strain_gauge_width*2, strain_gauge_screw_distance*1.75, 4], center=true);
 
             translate([0, 0, strain_gauge_width*2])
                 rotate([0, 90, 0])
-                    cylinder(d=M5_screw_diameter*1.6, h=strain_gauge_width*1.5, center=true, $fn=50);
+                    cylinder(d=M5_screw_diameter*1.6, h=strain_gauge_width*2, center=true, $fn=50);
         }
 
         translate([0, 0, strain_gauge_width*2])
             rotate([0, 90, 0])
-                cylinder(d=M5_screw_diameter, h=strain_gauge_width*2, center=true, $fn=50);
+                cylinder(d=M5_screw_diameter, h=strain_gauge_width*4, center=true, $fn=50);
 
         translate([0, 0, strain_gauge_width/2])
             cube([strain_gauge_width, strain_gauge_width*2, strain_gauge_width], center=true);

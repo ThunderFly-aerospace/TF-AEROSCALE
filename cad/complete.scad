@@ -25,7 +25,7 @@ module tenzometer() {
     color([0, 1, 1])
     888_5001();
     
-    translate([45, 0, 39])
+    translate([45, 0, 40])
     rotate([0, 0 ,90])
     color([0, 1, 1])
     888_5002();
