@@ -7,9 +7,12 @@ use <./src/888_5003.scad>
 use <./src/888_5004.scad>
 use <./src/888_5005.scad>
 use <./src/888_5006.scad>
+use <./src/888_5007.scad>
+use <./src/888_5008.scad>
+use <./src/888_5009.scad>
 
 
-base_width = mid_base_width+ALU_profile_width*2+ALU_profile_holder_wall_thickness*2;
+base_width = mid_base_width+ALU_profile_width*2+ALU_profile_holder_wall_thickness*2+M6_washer_thickness*2;
 side_pillars_offset = (M6_screw_diameter+10)/2-ALU_profile_holder_wall_thickness+base_mid_base_hinge_offset;
 
 module tenzometer() {
@@ -119,7 +122,7 @@ rotate([0, 90, 180])
 color([0, 1, 1])
 888_5005();
 
-// tower hinges
+// tower hinges attachment points
 translate([ALU_profile_width*.75, -mid_base_width/2+ALU_profile_width+ALU_profile_holder_wall_thickness*2, mid_base_height-ALU_profile_holder_wall_thickness])
 rotate([0, -90 ,0])
 color([0, 1, 1])
@@ -142,7 +145,7 @@ rotate([-atan((mid_base_width/2-ALU_profile_width)/tower_height), 0 ,0])
 translate([0, -ALU_profile_width/2 ,0])
 ALU_profile(height=tower_height/cos(atan((200-ALU_profile_width)/tower_height)));
 
-
+// tower hinges
 translate([0, 0, ALU_profile_width+mid_base_height])
 color([0, 1, 1])
 888_5006(side=-1);
@@ -150,5 +153,21 @@ color([0, 1, 1])
 translate([0, 0, ALU_profile_width+mid_base_height])
 color([0, 1, 1])
 888_5006(side=1);
+
+// rotor joint mekanism    
+translate([0, 0, ALU_profile_width+mid_base_height+35])
+rotate([0, 0, 0])
+color([0, 1, 1])
+888_5007();
+    
+translate([(608_bearing_outer_diameter+10+ALU_profile_width)/2+ALU_profile_holder_wall_thickness+15, 0, 70+(608_bearing_outer_diameter+10+5)/2+tower_height+mid_base_height+35+ALU_profile_width-12])
+rotate([180, 0, 90])
+color([0, 1, 1])
+888_5008(); 
+
+translate([(608_bearing_outer_diameter+10+ALU_profile_width)/2+ALU_profile_holder_wall_thickness+5, -M6_square_nut_diameter/2-1, 70+(608_bearing_outer_diameter+10+5)/2+tower_height+mid_base_height+ALU_profile_width-6])
+rotate([180, 0, 90])
+color([0, 1, 1])
+888_5009();
 
 
