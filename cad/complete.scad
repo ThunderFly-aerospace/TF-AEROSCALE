@@ -10,6 +10,7 @@ use <./src/888_5006.scad>
 use <./src/888_5007.scad>
 use <./src/888_5008.scad>
 use <./src/888_5009.scad>
+use <./src/888_5010.scad>
 
 
 base_width = mid_base_width+ALU_profile_width*2+ALU_profile_holder_wall_thickness*2+M6_washer_thickness*2;
@@ -62,6 +63,15 @@ color([0, 1, 1])
 888_3007();
 
 
+// front pillar //////////////////////////////////////////////////////
+translate([-250-ALU_profile_width/2, -mid_base_width/2+80/sin(atan((mid_base_width/2-ALU_profile_width)/80))-8, ALU_profile_width])
+ALU_profile(height=300);
+
+translate([-250-ALU_profile_width/2, -mid_base_width/2+80/sin(atan((mid_base_width/2-ALU_profile_width)/80))-8, ALU_profile_width+mid_base_height+80])
+rotate([180, -90, 0])
+tenzometer();
+
+
 // side pillars ///////////////////////////////////////////////////////
 translate([-side_pillars_offset-ALU_profile_width/2-ALU_profile_holder_wall_thickness*2, -base_width/2+ALU_profile_width/2, ALU_profile_width])
 ALU_profile(height=mid_base_height);
@@ -80,14 +90,6 @@ rotate([0, 0 ,-90])
 color([0, 1, 1])
 888_5004();
 
-// front pillar ///////////////////////////////////////////////////////
-translate([-250-ALU_profile_width/2, 0, ALU_profile_width])
-ALU_profile(height=mid_base_height+75);
-
-translate([-250-ALU_profile_width/2, 0, ALU_profile_width+mid_base_height+30])
-rotate([180, -90, 0])
-tenzometer();
-
 // mid base ///////////////////////////////////////////////////////////
 translate([-mid_base_length/3, mid_base_width/2-ALU_profile_width/2, ALU_profile_width/2+mid_base_height])
 rotate([0, 90, 0])
@@ -105,11 +107,18 @@ translate([mid_base_length/3*2+ALU_profile_width/2, -mid_base_width/2, ALU_profi
 rotate([0, 90, 90])
 ALU_profile(height=mid_base_width);
 
-// strain gauge attachment point    
+// lift strain gauge attachment point    
 translate([mid_base_length/3*2-ALU_profile_holder_wall_thickness, -ALU_profile_width/2, mid_base_height-ALU_profile_holder_wall_thickness*2])
 rotate([-90, 0 ,0])
 color([0, 1, 1])
 888_5003();
+
+// drag strain gauge attachment point    
+translate([0, -mid_base_width/2+ALU_profile_width/2, ALU_profile_width+mid_base_height+35])
+rotate([0, atan((mid_base_width/2-ALU_profile_width)/tower_height), 90])
+translate([-ALU_profile_width/2-ALU_profile_holder_wall_thickness*2, ALU_profile_width/2+ALU_profile_holder_wall_thickness*2, -ALU_profile_width/2+80+30])
+color([0, 1, 1])
+888_5010();
     
 // base hinges
 translate([-ALU_profile_width*.75-base_mid_base_hinge_offset, -mid_base_width/2+ALU_profile_width+ALU_profile_holder_wall_thickness*2, mid_base_height+ALU_profile_width+ALU_profile_holder_wall_thickness])
@@ -138,12 +147,12 @@ color([0, 1, 1])
 translate([0, mid_base_width/2-ALU_profile_width, ALU_profile_width+mid_base_height+35])
 rotate([atan((mid_base_width/2-ALU_profile_width)/tower_height), 0 ,0])
 translate([0, ALU_profile_width/2 ,0])
-ALU_profile(height=tower_height/cos(atan((200-ALU_profile_width)/tower_height)));
+ALU_profile(height=tower_height/cos(atan((mid_base_width/2-ALU_profile_width)/tower_height)));
 
 translate([0, -mid_base_width/2+ALU_profile_width, ALU_profile_width+mid_base_height+35])
 rotate([-atan((mid_base_width/2-ALU_profile_width)/tower_height), 0 ,0])
 translate([0, -ALU_profile_width/2 ,0])
-ALU_profile(height=tower_height/cos(atan((200-ALU_profile_width)/tower_height)));
+ALU_profile(height=tower_height/cos(atan((mid_base_width/2-ALU_profile_width)/tower_height)));
 
 // tower hinges
 translate([0, 0, ALU_profile_width+mid_base_height])
