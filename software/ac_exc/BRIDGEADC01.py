@@ -1,12 +1,15 @@
+import time
+
 class BRIDGEADC01:
     """
     Driver for the AD7730/AD7730L bridge ADC device. 
     """
 
-    def __init__(self,spi, SPI_CS):
+    def __init__(self,spi, SPI_CS,bipolar):
 
         self.spi=spi
         self.CS = SPI_CS
+
         #AD7730 register address
         self.AD7730_COMM_REG            =0b000
         self.AD7730_STATUS_REG          =0b000
@@ -46,7 +49,21 @@ class BRIDGEADC01:
         self.AD7730_AIN1P_AIN1N         =0b00
         self.AD7730_AIN2P_AIN2N         =0b01
         self.AD7730_AIN1N_AIN1N         =0b10
-        self.AD7730_AIN1N_AIN2N         =0b11      
+        self.AD7730_AIN1N_AIN2N         =0b11  
+
+        if bipolar==1:
+            self.polarity=self.AD7730_BIIPOLAR_MODE     
+        else:
+            self.polarity=self.AD7730_UNIPOLAR_MODE 
+
+        self.den = self.AD7730_IODISABLE_MODE
+        self.iovalue = 0b00
+        self.data_length = self.AD7730_24bitDATA_MODE
+        self.reference = self.AD7730_REFERENCE_5V
+        self.input_range = self.AD7730_80mVIR_MODE
+        self.clock_enable = self.AD7730_MCLK_ENABLE_MODE
+        self.burn_out = self.AD7730_BURNOUT_DISABLE
+
 
     def reset(self):
         self.spi.SPI_write(self.CS, [0xFF])       # wrinting least 32 serial clock with 1 at data input resets the device. 
@@ -106,10 +123,6 @@ class BRIDGEADC01:
         writing 011 to the MD2 to MD0 bits of the Mode Register. The power-on/reset status of this bit
         is 0 assuming the STANDBY pin is high.
 
-
-
-
-
         NOREF - No Reference Bit. If the voltage between the REF IN(+) and REF IN(-) pins is below 0.3 V, or either of these inputs is open-circuit, the NOREF bit goes to 1. If NOREF is active on completion of a conversion, the Data Register is loaded with all 1s. If NOREF is active on completion of a calibration, updating of the calibration registers is inhibited."""
 
         status = self.single_read(self.AD7730_STATUS_REG)
@@ -121,17 +134,23 @@ class BRIDGEADC01:
 
     def getData(self):
         data = self.single_read(self.AD7730_DATA_REG)
-        value = (data[0] << 15) + (data[1] << 7) + data[2]
+        value = (data[0] << 16) + (data[1] << 8) + data[2]
+        if self.polarity==self.AD7730_BIIPOLAR_MODE:
+            value -= 0x800000
         return value
 
-    def IsBusy(self):
+    def isBusy(self):
         """ Return True if ADC is busy """
         status = self.getStatus()
         return status['RDY']
 
+    def wait(self):
+        while self.isBusy():            ## wait for RDY pin to go low to indicate end of callibration cycle. 
+            #print scale.getStatus()
+            time.sleep(0.1)
 
     def setMode(self
-                    ,mode  
+                    ,mode
                     ,polarity 
                     ,den 
                     ,iovalue 
@@ -143,8 +162,8 @@ class BRIDGEADC01:
                     ,channel):
         '''
         def setMode(self
-                    ,mode = self.AD7730_IDLE_MODE 
-                    ,polarity = self.AD7730_UNIPOLAR_MODE
+                    ,mode = self.AD7730_IDLE_MODE
+                    ,polarity = self.AD7730_BIIPOLAR_MODE
                     ,den = self.AD7730_IODISABLE_MODE
                     ,iovalue = 0b00
                     ,data_lenght = self.AD7730_24bitDATA_MODE
@@ -165,3 +184,29 @@ class BRIDGEADC01:
         data[2] = data[2] | 0b00110011
         self.single_write(self.AD7730_FILTER_REG, data)
         return data
+
+    def blockingOperation(self,mode,channel_num):
+        if channel_num==0:
+            channel = self.AD7730_AIN1P_AIN1N
+        self.setMode(
+                         mode = mode
+                        ,polarity=self.polarity  
+                        ,den = self.den
+                        ,iovalue = self.iovalue
+                        ,data_length = self.data_length
+                        ,reference = self.reference
+                        ,input_range = self.input_range
+                        ,clock_enable = self.clock_enable
+                        ,burn_out = self.burn_out
+                        ,channel = channel
+			        )
+        self.wait()
+
+    def systemZeroCalibration(self,channel_num):
+        self.blockingOperation(self.AD7730_SYSTEM_ZERO_CALIBRATION,0)
+
+    def internalFullScaleCalibration(self,channel_num):
+        self.blockingOperation(self.AD7730_INT_FULL_CALIBRATION,0)
+        
+    def doSingleConversion(self,channel_num):
+        self.blockingOperation(self.AD7730_SCONVERSION_MODE,0)
