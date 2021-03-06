@@ -207,10 +207,10 @@ class BRIDGEADC01:
         self.wait()
 
     def systemZeroCalibration(self,channel_num):
-        self.blockingOperation(self.AD7730_SYSTEM_ZERO_CALIBRATION,0)
+        self.blockingOperation(self.AD7730_SYSTEM_ZERO_CALIBRATION,channel_num)
 
     def internalFullScaleCalibration(self,channel_num):
-        self.blockingOperation(self.AD7730_INT_FULL_CALIBRATION,0)
+        self.blockingOperation(self.AD7730_INT_FULL_CALIBRATION,channel_num)
         
     def doSingleConversion(self,channel_num):
-        self.blockingOperation(self.AD7730_SCONVERSION_MODE,0)
+        self.blockingOperation(self.AD7730_SCONVERSION_MODE,channel_num)

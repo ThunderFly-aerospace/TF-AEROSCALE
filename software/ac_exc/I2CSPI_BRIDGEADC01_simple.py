@@ -49,7 +49,7 @@ try:
 
     scale.setFilter()
 
-    channel=1;
+    channel=0;
 
     scale.systemZeroCalibration(channel)
     print "System Zero scale calibration completed.."
