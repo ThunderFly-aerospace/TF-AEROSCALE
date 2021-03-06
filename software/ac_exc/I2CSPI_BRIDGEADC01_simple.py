@@ -49,17 +49,19 @@ try:
 
     scale.setFilter()
 
-    scale.systemZeroCalibration(0)
+    channel=1;
+
+    scale.systemZeroCalibration(channel)
     print "System Zero scale calibration completed.."
-    scale.internalFullScaleCalibration(0)
+    scale.internalFullScaleCalibration(channel)
     print "Internal Full scale calibration completed..." 
-    scale.systemZeroCalibration(0)
+    scale.systemZeroCalibration(channel)
     print "System Zero scale calibration completed.. Start reading the data.."
 
     scale.setFilter()
 
     while 1:
-        scale.doSingleConversion(0)
+        scale.doSingleConversion(channel)
         channel1 = scale.getData()
         data = np.array([channel1])
         print data

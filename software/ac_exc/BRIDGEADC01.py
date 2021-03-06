@@ -48,7 +48,7 @@ class BRIDGEADC01:
         self.AD7730_BURNOUT_ENABLE      =0b1
         self.AD7730_AIN1P_AIN1N         =0b00
         self.AD7730_AIN2P_AIN2N         =0b01
-        self.AD7730_AIN1N_AIN1N         =0b10
+        self.AD7730_AIN1N_AIN1N         =0b10 #nois test purpose - internaly connected together
         self.AD7730_AIN1N_AIN2N         =0b11  
 
         if bipolar==1:
@@ -188,6 +188,10 @@ class BRIDGEADC01:
     def blockingOperation(self,mode,channel_num):
         if channel_num==0:
             channel = self.AD7730_AIN1P_AIN1N
+
+        if channel_num==1:
+            channel = self.AD7730_AIN2P_AIN2N
+
         self.setMode(
                          mode = mode
                         ,polarity=self.polarity  
