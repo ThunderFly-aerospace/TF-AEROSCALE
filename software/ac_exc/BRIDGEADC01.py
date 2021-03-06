@@ -131,13 +131,16 @@ class BRIDGEADC01:
                             ('STDY',status[0] & 0x40 == 0x40),
                             ('RDY',status[0] & 0x80 == 0x80)])
         return bits_values
-
-    def getData(self):
-        data = self.single_read(self.AD7730_DATA_REG)
+    
+    def getReg24bit(self,reg):
+        data = self.single_read(reg)
         value = (data[0] << 16) + (data[1] << 8) + data[2]
-        if self.polarity==self.AD7730_BIIPOLAR_MODE:
-            value -= 0x800000
+        #if self.polarity==self.AD7730_BIIPOLAR_MODE:
+        #    value -= 0x800000
         return value
+
+    def setReg24bit(self,reg,data):
+        self.single_write(reg, [(data & 0xFF0000)>>16,(data & 0x00FF00)>>8,(data & 0x0000FF)])
 
     def isBusy(self):
         """ Return True if ADC is busy """
@@ -180,6 +183,9 @@ class BRIDGEADC01:
         self.single_write(self.AD7730_MODE_REG, [mode_MSB, mode_LSB])
 
     def setFilter(self):
+        '''
+        Do some magic, (btw. set AC excitation)
+        '''
         data = self.single_read(self.AD7730_FILTER_REG)
         data[2] = data[2] | 0b00110011
         self.single_write(self.AD7730_FILTER_REG, data)
@@ -207,10 +213,79 @@ class BRIDGEADC01:
         self.wait()
 
     def systemZeroCalibration(self,channel_num):
+        '''
+        zero calibration using connected tenzometer with zero load
+        '''
         self.blockingOperation(self.AD7730_SYSTEM_ZERO_CALIBRATION,channel_num)
 
+    def internalZeroCalibration(self,channel_num):
+        '''
+        zero calibration with 0V connected internaly
+        '''
+        self.blockingOperation(self.AD7730_INT_ZERO_CALIBRATION,channel_num)
+
+    def systemFullScaleCalibration(self,channel_num):
+        '''
+        full scale calibration with tenozmeter connected and fully loaded.
+        Not sure, but do do zero calibration before and after this calibration
+        '''
+        self.blockingOperation(self.AD7730_SYSTEM_FULL_CALIBRATION,channel_num)
+
     def internalFullScaleCalibration(self,channel_num):
+        '''
+        full scale calibration with max input voltage conected internaly.
+        Not sure, but do do zero calibration before and after this calibration
+        '''
         self.blockingOperation(self.AD7730_INT_FULL_CALIBRATION,channel_num)
         
     def doSingleConversion(self,channel_num):
+        '''
+        do single conversion of selected channel
+        '''
         self.blockingOperation(self.AD7730_SCONVERSION_MODE,channel_num)
+
+    def getData(self):
+        '''
+        Read data register for last used selected channel
+        '''
+        value=self.getReg24bit(self.AD7730_DATA_REG)
+        if self.polarity==self.AD7730_BIIPOLAR_MODE:
+            value -= 0x800000
+        return value
+
+    def getGain(self):
+        '''
+        Read gain register for last used selected channel
+        '''
+        return self.getReg24bit(self.AD7730_GAIN_REG)
+
+
+    def getOffset(self):
+        '''
+        Read offset register for last used selected channel
+        '''
+        return self.getReg24bit(self.AD7730_OFFSET_REG)
+
+    def setChannelOnly(self, channel_num):
+        if channel_num==0:
+            channel = self.AD7730_AIN1P_AIN1N
+
+        if channel_num==1:
+            channel = self.AD7730_AIN2P_AIN2N
+    
+        mode = self.single_read(self.AD7730_MODE_REG)
+        mode[1] = (mode[1] & 0b11111100) | channel
+        self.single_write(self.AD7730_MODE_REG, mode)
+
+    def setGain(self, gain):
+        '''
+        ??? Set gain register value for last used channel?
+        '''
+        self.setReg24bit(self.AD7730_GAIN_REG,gain)
+
+    def setOffset(self, offset):
+        '''
+        ??? Set gain register value for last used channel?
+        '''
+        self.setReg24bit(self.AD7730_OFFSET_REG,offset)
+

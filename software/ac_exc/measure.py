@@ -49,29 +49,17 @@ try:
 
     scale.setFilter()
 
-    channel=0;
-    scale.systemZeroCalibration(channel)
-    print "System Zero scale calibration completed.."
-    scale.internalFullScaleCalibration(channel)
-    print "Internal Full scale calibration completed..." 
-    scale.systemZeroCalibration(channel)
-    print "System Zero scale calibration completed.. Start reading the data.."
-
+    scale.setChannelOnly(0)
+    scale.setOffset(8395182)
+    scale.setGain(16777215)
     print scale.getOffset();
     print scale.getGain();
 
-    channel=1;
-    scale.systemZeroCalibration(channel)
-    print "System Zero scale calibration completed.."
-    scale.internalFullScaleCalibration(channel)
-    print "Internal Full scale calibration completed..." 
-    scale.systemZeroCalibration(channel)
-    print "System Zero scale calibration completed.. Start reading the data.."
-
+    scale.setChannelOnly(1)
+    scale.setOffset(8387532)
+    scale.setGain(16777215)    
     print scale.getOffset();
     print scale.getGain();
- 
-    scale.setFilter()
  
     while 1:
         scale.doSingleConversion(0)
