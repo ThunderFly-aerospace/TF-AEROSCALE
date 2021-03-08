@@ -10,7 +10,7 @@ module 888_5002() {
 
             translate([0, 0, strain_gauge_width*2])
                 rotate([0, 90, 0])
-                    cylinder(d=M5_screw_diameter*1.6, h=strain_gauge_width*2, center=true, $fn=50);
+                    cylinder(d=M5_screw_diameter*2.5, h=strain_gauge_width*2, center=true, $fn=50);
         }
 
         translate([0, 0, strain_gauge_width*2])
