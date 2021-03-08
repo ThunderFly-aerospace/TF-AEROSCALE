@@ -7,7 +7,7 @@ global_clearance = 0.5;
 // scale parameters
 tower_height = 220;
 mid_base_width = 400;
-mid_base_height = 200;
+mid_base_height = 160;
 mid_base_length = 300;
 base_mid_base_hinge_offset = 50;
 

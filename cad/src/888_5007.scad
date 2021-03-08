@@ -1,6 +1,7 @@
 include <../parameters.scad>
 use <./lib/ALU_profile_holder_side.scad>
 use <./lib/ALU_profile.scad>
+use <./888_5002.scad>
 use <./888_5005.scad>
 
 
@@ -15,6 +16,11 @@ module 888_5007_attachment_points() {
     rotate([-atan((mid_base_width/2-ALU_profile_width)/tower_height), 0 ,0])
     translate([0, -ALU_profile_width/2 ,0])
     ALU_profile(height=tower_height/cos(atan((200-ALU_profile_width)/tower_height)));
+    
+    // drag attachment point
+    translate([-ALU_profile_width/2-ALU_profile_holder_wall_thickness*3, 0, -ALU_profile_width+tower_height+38-35])
+    rotate([90, 0, -90])
+    888_5002();
 }
 
 module 888_5007(side=1) {
@@ -83,6 +89,21 @@ module 888_5007(side=1) {
             translate([0, ALU_profile_width*1.5, tower_height/cos(atan((200-ALU_profile_width)/tower_height))-12])
             rotate([90, 0, 0])
             cylinder(h=ALU_profile_width, d=M5_screw_diameter, $fn=50);
+            
+            // drag tenzometer attachment point
+            translate([0, 0, -ALU_profile_width+tower_height+38-35+strain_gauge_screw_distance/2])
+            rotate([90, 0, -90])
+            union () {
+                cylinder(h=ALU_profile_width, d=M4_screw_diameter, $fn=50);
+                cylinder(h=ALU_profile_width/3, d=M4_nut_diameter, $fn=6);
+            }
+            
+            translate([0, 0, -ALU_profile_width+tower_height+38-35-strain_gauge_screw_distance/2])
+            rotate([90, 0, -90])
+            union () {
+                cylinder(h=ALU_profile_width, d=M4_screw_diameter, $fn=50);
+                cylinder(h=ALU_profile_width/3, d=M4_nut_diameter, $fn=6);
+            }
             
             // angle adjustment screws holes
             adjustment_screw_holes_width = 34;
