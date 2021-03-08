@@ -13,7 +13,8 @@ use <./src/888_5009.scad>
 
 
 base_width = mid_base_width+ALU_profile_width*2+ALU_profile_holder_wall_thickness*2+M6_washer_thickness*2;
-side_pillars_offset = (M6_screw_diameter+10)/2-ALU_profile_holder_wall_thickness+base_mid_base_hinge_offset;
+side_pillars_offset = -ALU_profile_width/2+base_mid_base_hinge_offset;
+mid_base_height_offset = (608_bearing_outer_diameter+10)/2-1;
 
 module tenzometer() {
     translate([-strain_gauge_screw_distance/2-10, strain_gauge_width/-2, ALU_profile_width/2+ALU_profile_holder_wall_thickness*2+3])
@@ -36,11 +37,11 @@ translate([-250, 0, ALU_profile_width/2])
 rotate([0, 90, 0])
 ALU_profile(height=500);
 
-translate([-250, base_width/2-ALU_profile_width/2, ALU_profile_width/2])
+translate([-250, base_width/2-ALU_profile_width*2+ALU_profile_holder_wall_thickness+5, ALU_profile_width/2])
 rotate([0, 90, 0])
 ALU_profile(height=500);
 
-translate([-250, -base_width/2+ALU_profile_width/2, ALU_profile_width/2])
+translate([-250, -base_width/2+ALU_profile_width*2-ALU_profile_holder_wall_thickness-5, ALU_profile_width/2])
 rotate([0, 90, 0])
 ALU_profile(height=500);
 
@@ -72,20 +73,20 @@ tenzometer();
 
 
 // side pillars ///////////////////////////////////////////////////////
-translate([-side_pillars_offset-ALU_profile_width/2-ALU_profile_holder_wall_thickness*2, -base_width/2+ALU_profile_width/2, ALU_profile_width])
-ALU_profile(height=mid_base_height+ALU_profile_width+10);
+translate([-side_pillars_offset-ALU_profile_width/2, -base_width/2+ALU_profile_width*2-ALU_profile_holder_wall_thickness-5, ALU_profile_width])
+ALU_profile(height=mid_base_height+mid_base_height_offset-ALU_profile_width*2-ALU_profile_holder_wall_thickness*4);
 
-translate([-side_pillars_offset-ALU_profile_width/2-ALU_profile_holder_wall_thickness*2, base_width/2-ALU_profile_width/2, ALU_profile_width])
-ALU_profile(height=mid_base_height+ALU_profile_width+10);
+translate([-side_pillars_offset-ALU_profile_width/2, base_width/2-ALU_profile_width*2+ALU_profile_holder_wall_thickness+5, ALU_profile_width])
+ALU_profile(height=mid_base_height+mid_base_height_offset-ALU_profile_width*2-ALU_profile_holder_wall_thickness*4);
 
 // mid base hinges - static attachment points
-translate([-side_pillars_offset, base_width/2+ALU_profile_holder_wall_thickness, mid_base_height+ALU_profile_width+1])
-rotate([0, 0 ,-90])
+translate([-side_pillars_offset, base_width/2-ALU_profile_width*2+ALU_profile_holder_wall_thickness+5, mid_base_height-mid_base_height_offset])
+rotate([90, 0, -90])
 color([0, 1, 1])
 888_5004();
 
-translate([-side_pillars_offset, -base_width/2+ALU_profile_width+ALU_profile_holder_wall_thickness, mid_base_height+ALU_profile_width+1])
-rotate([0, 0 ,-90])
+translate([-side_pillars_offset, -base_width/2+ALU_profile_width*2-ALU_profile_holder_wall_thickness-5, mid_base_height-mid_base_height_offset])
+rotate([90, 0 ,-90])
 color([0, 1, 1])
 888_5004();
 
@@ -135,7 +136,7 @@ color([0, 1, 1])
 888_5005();
 
 
-// tower arms /////////////////////////////////////////////////////////
+// tower ///////////////////////////////////////////////////////////////////
 translate([0, mid_base_width/2-ALU_profile_width, ALU_profile_width+mid_base_height+35])
 rotate([atan((mid_base_width/2-ALU_profile_width)/tower_height), 0 ,0])
 translate([0, ALU_profile_width/2 ,0])
