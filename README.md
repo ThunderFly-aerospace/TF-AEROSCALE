@@ -22,4 +22,4 @@ After that commands the make should be run from src directory.
 
 ## Electrical connection
 
-    ![Elecrical connection](doc/img/wiring_draw.png)
+![Elecrical connection](doc/img/wiring_draw.png)
