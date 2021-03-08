@@ -1,5 +1,6 @@
 include <../parameters.scad>
 use <./lib/ALU_profile_holder_side.scad>
+use <./888_5010.scad>
 
 
 module 888_5005() {
@@ -32,7 +33,7 @@ module 888_5005_bearing_half() {
             cylinder(h=ALU_profile_width+ALU_profile_holder_wall_thickness*2, d=608_bearing_outer_diameter+10, $fn=100);
         }
         translate([0, 0, -5])
-        cylinder(h=ALU_profile_width+ALU_profile_holder_wall_thickness*2+10, d=M6_screw_diameter+2, $fn=100);
+        cylinder(h=ALU_profile_width+ALU_profile_holder_wall_thickness*2+10, d=M6_screw_diameter+10, $fn=100);
         
         translate([0, 0, -.01])
         cylinder(h=608_bearing_thickness, d=608_bearing_outer_diameter, $fn=100);
@@ -48,6 +49,9 @@ module 888_5005_bearing_half() {
         rotate([90, 0, 0])
         cylinder(h=ALU_profile_width*2, d=10, $fn=100);
     }
+    
+    translate([0, 0, 608_bearing_thickness])
+    888_5010();
 }
 
 888_5005();

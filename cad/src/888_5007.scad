@@ -3,6 +3,7 @@ use <./lib/ALU_profile_holder_side.scad>
 use <./lib/ALU_profile.scad>
 use <./888_5002.scad>
 use <./888_5005.scad>
+use <./888_5011.scad>
 
 
 module 888_5007_attachment_points() {
@@ -145,20 +146,25 @@ module 888_5007(side=1) {
         
         translate([(608_bearing_outer_diameter+10+ALU_profile_width)/2+ALU_profile_holder_wall_thickness+15, ALU_profile_width/2, tower_height-12])
         rotate([0, 90, -90])
-        difference() {
-            hull() {
-                translate([-ALU_profile_width*.75, -(608_bearing_outer_diameter+10)/2-15, 0])
-                cube([ALU_profile_width*1.5, 3, ALU_profile_width]);
-                cylinder(h=ALU_profile_width, d=608_bearing_outer_diameter+10, $fn=100);
+        union() {
+            difference() {
+                hull() {
+                    translate([-ALU_profile_width*.75, -(608_bearing_outer_diameter+10)/2-15, 0])
+                    cube([ALU_profile_width*1.5, 3, ALU_profile_width]);
+                    cylinder(h=ALU_profile_width, d=608_bearing_outer_diameter+10, $fn=100);
+                }
+                translate([0, 0, -5])
+                cylinder(h=ALU_profile_width+10, d=M6_screw_diameter+10, $fn=100);
+                
+                translate([0, 0, -.01])
+                cylinder(h=608_bearing_thickness, d=608_bearing_outer_diameter, $fn=100);
+                
+                translate([0, 0, ALU_profile_width-608_bearing_thickness+.01])
+                cylinder(h=608_bearing_thickness, d=608_bearing_outer_diameter, $fn=100);
             }
-            translate([0, 0, -5])
-            cylinder(h=ALU_profile_width+10, d=M6_screw_diameter+2, $fn=100);
-            
-            translate([0, 0, -.01])
-            cylinder(h=608_bearing_thickness, d=608_bearing_outer_diameter, $fn=100);
-            
-            translate([0, 0, ALU_profile_width-608_bearing_thickness+.01])
-            cylinder(h=608_bearing_thickness, d=608_bearing_outer_diameter, $fn=100);
+        
+            translate([0, 0, 608_bearing_thickness])
+            888_5011();
         }
     }   
 }
