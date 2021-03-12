@@ -10,6 +10,7 @@ mid_base_width = 400;
 mid_base_height = 160;
 mid_base_length = 300;
 base_mid_base_hinge_offset = 50;
+counterweight_length = 200;
 
 
 //Screw diameter and nut for M10 [mm]

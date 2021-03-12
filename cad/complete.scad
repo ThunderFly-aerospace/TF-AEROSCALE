@@ -99,13 +99,13 @@ translate([-mid_base_length/3, mid_base_width/2-ALU_profile_width/2, ALU_profile
 rotate([0, 90, 0])
 ALU_profile(height=mid_base_length);
 
-translate([-mid_base_length/3, -mid_base_width/2+ALU_profile_width/2, ALU_profile_width/2+mid_base_height])
+translate([-mid_base_length/3-counterweight_length-ALU_profile_width, -mid_base_width/2+ALU_profile_width/2, ALU_profile_width/2+mid_base_height])
 rotate([0, 90, 0])
-ALU_profile(height=mid_base_length);
+ALU_profile(height=mid_base_length+counterweight_length+ALU_profile_width);
 
-translate([-mid_base_length/3-ALU_profile_width/2, -mid_base_width/2, ALU_profile_width/2+mid_base_height])
+translate([-mid_base_length/3-ALU_profile_width/2, -mid_base_width/2+ALU_profile_width, ALU_profile_width/2+mid_base_height])
 rotate([0, 90, 90])
-ALU_profile(height=mid_base_width);
+ALU_profile(height=mid_base_width-ALU_profile_width);
 
 translate([mid_base_length/3*2-ALU_profile_width/2, -mid_base_width/2, ALU_profile_width*1.5+mid_base_height])
 rotate([0, 90, 90])
