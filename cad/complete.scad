@@ -16,14 +16,16 @@ base_width = mid_base_width+ALU_profile_width*2+ALU_profile_holder_wall_thicknes
 side_pillars_offset = -ALU_profile_width/2+base_mid_base_hinge_offset;
 mid_base_height_offset = (608_bearing_outer_diameter+10)/2-1;
 
-module tenzometer() {
+module tenzometer(mounting_part=true) {
     translate([-strain_gauge_screw_distance/2-10, strain_gauge_width/-2, ALU_profile_width/2+ALU_profile_holder_wall_thickness*2+3])
     color([0, 0, 1]) cube([strain_gauge_length, strain_gauge_width, strain_gauge_width]);
     
-    translate([15, ALU_profile_width/2+ALU_profile_holder_wall_thickness, ALU_profile_width/2+ALU_profile_holder_wall_thickness*2])
-    rotate([90, 0 ,-90])
-    color([0, 1, 1])
-    888_5001();
+    if(mounting_part) {
+        translate([15, ALU_profile_width/2+ALU_profile_holder_wall_thickness, ALU_profile_width/2+ALU_profile_holder_wall_thickness*2])
+        rotate([90, 0 ,-90])
+        color([0, 1, 1])
+        888_5001();
+    }
     
     translate([45, 0, 40])
     rotate([0, 0 ,90])
@@ -65,11 +67,13 @@ color([0, 1, 1])
 
 // front pillar //////////////////////////////////////////////////////
 translate([-250-ALU_profile_width/2, 0, ALU_profile_width])
-ALU_profile(height=mid_base_height+tower_height-7);
+ALU_profile(height=mid_base_height+tower_height);
 
-translate([-250-ALU_profile_width/2, 0, mid_base_height+tower_height-7])
-rotate([180, -90, 0])
-tenzometer();
+translate([-250+ALU_profile_holder_wall_thickness*2, -ALU_profile_width/2-ALU_profile_holder_wall_thickness, mid_base_height+tower_height+7])
+rotate([180, 0, 90])
+//tenzometer(false);
+color([0, 1, 1])
+888_5003();
 
 
 // side pillars ///////////////////////////////////////////////////////
@@ -111,7 +115,7 @@ ALU_profile(height=mid_base_width);
 translate([mid_base_length/3*2+ALU_profile_holder_wall_thickness*2, -ALU_profile_width/2, mid_base_height-ALU_profile_holder_wall_thickness+ALU_profile_width])
 rotate([-90, -90 ,0])
 color([0, 1, 1])
-888_5003();
+888_5003(rotation=90);
     
 // base hinges
 translate([ALU_profile_width*.75-base_mid_base_hinge_offset, -mid_base_width/2+ALU_profile_width+ALU_profile_holder_wall_thickness*2, mid_base_height-ALU_profile_holder_wall_thickness])
@@ -173,8 +177,7 @@ color([0, 1, 1])
 888_5009();
 
 // drag strain gauge attachment point
-translate([-ALU_profile_width/2-ALU_profile_holder_wall_thickness*3, 0, 38+mid_base_height+tower_height])
-rotate([90, 0, -90])
-color([0, 1, 1])
-888_5002();
+translate([ALU_profile_holder_wall_thickness, 0, 38+mid_base_height+tower_height])
+rotate([90, 90, -90])
+tenzometer(mounting_part=false);
 
