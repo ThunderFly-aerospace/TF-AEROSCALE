@@ -47,13 +47,13 @@ translate([-250, -base_width/2+ALU_profile_width*2-ALU_profile_holder_wall_thick
 rotate([0, 90, 0])
 ALU_profile(height=500);
 
-translate([-250-ALU_profile_width/2, -base_width/2, ALU_profile_width/2])
+translate([-250-ALU_profile_width/2, -500/2, ALU_profile_width/2])
 rotate([0, 90, 90])
-ALU_profile(height=base_width);
+ALU_profile(height=500);
 
-translate([250+ALU_profile_width/2, -base_width/2, ALU_profile_width/2])
+translate([250+ALU_profile_width/2, -500/2, ALU_profile_width/2])
 rotate([0, 90, 90])
-ALU_profile(height=base_width);
+ALU_profile(height=500);
 
 translate([172+ALU_profile_width/2, 0, ALU_profile_width/2])
 tenzometer();
