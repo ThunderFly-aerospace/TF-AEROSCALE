@@ -5,12 +5,13 @@ global_clearance = 0.5;
 
 
 // scale parameters
-tower_height = 220;
-mid_base_width = 400;
+base_length = 500;
+tower_height = 175;
+mid_base_width = 500;
 mid_base_height = 160;
-mid_base_length = 300;
+mid_base_length = 500;
+mid_base_x_offset = 50;
 base_mid_base_hinge_offset = 50;
-counterweight_length = 200;
 
 
 //Screw diameter and nut for M10 [mm]
