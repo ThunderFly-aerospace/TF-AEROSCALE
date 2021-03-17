@@ -69,7 +69,7 @@ color([0, 1, 1])
 translate([-base_length/2-ALU_profile_width/2, 0, ALU_profile_width])
 ALU_profile(height=mid_base_height+tower_height);
 
-translate([-base_length/2+ALU_profile_holder_wall_thickness*2, -ALU_profile_width/2-ALU_profile_holder_wall_thickness, mid_base_height+tower_height/cos(atan((mid_base_height/2-ALU_profile_width)/tower_height))])
+translate([-base_length/2+ALU_profile_holder_wall_thickness*2, -ALU_profile_width/2-ALU_profile_holder_wall_thickness, mid_base_height+tower_height-ALU_profile_width])
 rotate([180, 0, 90])
 color([0, 1, 1])
 888_5003();
@@ -141,14 +141,14 @@ color([0, 1, 1])
 
 // tower ///////////////////////////////////////////////////////////////////
 translate([0, mid_base_width/2-ALU_profile_width, ALU_profile_width+mid_base_height+35])
-rotate([atan((mid_base_width/2-ALU_profile_width)/tower_height), 0 ,0])
+rotate([tower_angle, 0 ,0])
 translate([0, ALU_profile_width/2 ,0])
-ALU_profile(height=tower_height/cos(atan((mid_base_width/2-ALU_profile_width)/tower_height)));
+ALU_profile(height=tower_arm_length);
 
 translate([0, -mid_base_width/2+ALU_profile_width, ALU_profile_width+mid_base_height+35])
-rotate([-atan((mid_base_width/2-ALU_profile_width)/tower_height), 0 ,0])
+rotate([-tower_angle, 0 ,0])
 translate([0, -ALU_profile_width/2 ,0])
-ALU_profile(height=tower_height/cos(atan((mid_base_width/2-ALU_profile_width)/tower_height)));
+ALU_profile(height=tower_arm_length);
 
 // tower hinges
 translate([0, 0, ALU_profile_width+mid_base_height])
@@ -176,7 +176,7 @@ color([0, 1, 1])
 888_5009();
 
 // drag strain gauge attachment point
-translate([ALU_profile_holder_wall_thickness, 0, mid_base_height+tower_height/cos(atan((200-ALU_profile_width)/tower_height))-10])
+translate([ALU_profile_holder_wall_thickness, 0, mid_base_height+tower_height])
 rotate([90, 90, -90])
 tenzometer(mounting_part=false);
 

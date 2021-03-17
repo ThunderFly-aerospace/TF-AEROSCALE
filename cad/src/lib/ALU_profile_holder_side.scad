@@ -21,9 +21,9 @@ module ALU_profile_holder_side(height) {
             cube([ALU_profile_width, ALU_profile_width + 0.1, height + 0.2]);
         
         translate([wall_thickness*0.5, ALU_profile_width/2, 0]) {
-            screws_holes(M5_screw_diameter);
+            screws_holes(M6_screw_diameter);
             translate([ALU_profile_width+wall_thickness, 0, 0]) {
-                screws_holes(M5_screw_diameter);
+                screws_holes(M6_screw_diameter);
             }
         }
     }

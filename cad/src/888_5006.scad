@@ -7,14 +7,14 @@ use <./888_5005.scad>
 module 888_5006_attachment_points() {
     // tower arms /////////////////////////////////////////////////////////
     translate([0, mid_base_width/2-ALU_profile_width, 35])
-    rotate([atan((mid_base_width/2-ALU_profile_width)/tower_height), 0 ,0])
+    rotate([tower_angle, 0 ,0])
     translate([0, ALU_profile_width/2 ,0])
-    ALU_profile(height=tower_height/cos(atan((200-ALU_profile_width)/tower_height)));
+    ALU_profile(height=tower_arm_length);
     
     translate([0, -mid_base_width/2+ALU_profile_width, 35])
-    rotate([-atan((mid_base_width/2-ALU_profile_width)/tower_height), 0 ,0])
+    rotate([-tower_angle, 0 ,0])
     translate([0, -ALU_profile_width/2 ,0])
-    ALU_profile(height=tower_height/cos(atan((200-ALU_profile_width)/tower_height)));
+    ALU_profile(height=tower_arm_length);
     
     // tower hinges
     translate([ALU_profile_width*.75, -mid_base_width/2+ALU_profile_width+ALU_profile_holder_wall_thickness*2, -ALU_profile_width-ALU_profile_holder_wall_thickness])
@@ -36,7 +36,7 @@ module 888_5006(side=1) {
             
             
             translate([-ALU_profile_width/2-ALU_profile_holder_wall_thickness*2, (-mid_base_width/2+ALU_profile_width)*side, 35])
-            rotate([(-atan((mid_base_width/2-ALU_profile_width)/tower_height))*side, 0 ,0])
+            rotate([-tower_angle*side, 0 ,0])
             union() {
                 // tower arm cylinder
                 translate([0, -ALU_profile_width/2*side ,0])
@@ -51,30 +51,30 @@ module 888_5006(side=1) {
         
         // profile arm cutter
         translate([-ALU_profile_width/2, (-mid_base_width/2+ALU_profile_width)*side, 35])
-        rotate([-atan((mid_base_width/2-ALU_profile_width)/tower_height)*side, 0 ,0])
+        rotate([-tower_angle*side, 0 ,0])
         union() {
             translate([0, -ALU_profile_width/2-side*ALU_profile_width/2 ,0])
-            cube([ALU_profile_width, ALU_profile_width, tower_height/cos(atan((200-ALU_profile_width)/tower_height))]);
+            cube([ALU_profile_width, ALU_profile_width, tower_arm_length]);
                 
             translate([ALU_profile_width/2, 0, 12])
             rotate([side*90, 0, 0])
             union() {
-                cylinder(d=M5_screw_diameter, h=ALU_profile_width*2, $fn=100);
+                cylinder(d=M6_screw_diameter, h=ALU_profile_width*2, $fn=100);
                 
                 translate([0, 0, ALU_profile_width+ALU_profile_holder_wall_thickness])
-                cylinder(d=M5_nut_diameter+5, h=ALU_profile_width, $fn=100);
+                cylinder(d=M6_nut_diameter+5, h=ALU_profile_width, $fn=100);
             }
                 
             translate([ALU_profile_width/2, side*ALU_profile_width*2, ALU_profile_width+6])
             rotate([side*90, 0, 0])
             union() {
-                cylinder(d=M5_screw_diameter, h=ALU_profile_width*4, $fn=100);
+                cylinder(d=M6_screw_diameter, h=ALU_profile_width*4, $fn=100);
                 
                 translate([0, 0, ALU_profile_width-ALU_profile_holder_wall_thickness])
-                cylinder(d=M5_nut_diameter+5, h=ALU_profile_width, $fn=100);
+                cylinder(d=M6_nut_diameter+5, h=ALU_profile_width, $fn=100);
                 
                 translate([0, 0, ALU_profile_width*3+ALU_profile_holder_wall_thickness])
-                cylinder(d=M5_nut_diameter+5, h=ALU_profile_width, $fn=100);
+                cylinder(d=M6_nut_diameter+5, h=ALU_profile_width, $fn=100);
             }
         }
         

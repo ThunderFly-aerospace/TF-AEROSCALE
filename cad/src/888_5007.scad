@@ -9,97 +9,97 @@ use <./888_5011.scad>
 module 888_5007_attachment_points() {
     // tower arms /////////////////////////////////////////////////////////
     translate([0, mid_base_width/2-ALU_profile_width, 0])
-    rotate([atan((mid_base_width/2-ALU_profile_width)/tower_height), 0 ,0])
+    rotate([tower_angle, 0 ,0])
     translate([0, ALU_profile_width/2 ,0])
-    ALU_profile(height=tower_height/cos(atan((mid_base_width/2-ALU_profile_width)/tower_height)));
+    ALU_profile(height=tower_arm_length);
     
     translate([0, -mid_base_width/2+ALU_profile_width, 0])
-    rotate([-atan((mid_base_width/2-ALU_profile_width)/tower_height), 0 ,0])
+    rotate([-tower_angle, 0 ,0])
     translate([0, -ALU_profile_width/2 ,0])
-    ALU_profile(height=tower_height/cos(atan((mid_base_width/2-ALU_profile_width)/tower_height)));
+    ALU_profile(height=tower_arm_length);
     
     // drag attachment point
-    translate([-ALU_profile_width/2-ALU_profile_holder_wall_thickness*3, 0, -ALU_profile_width+tower_height/cos(atan((mid_base_width/2-ALU_profile_width)/tower_height))-75])
+    translate([-ALU_profile_width/2-ALU_profile_holder_wall_thickness*3, 0, tower_height-tower_drag_z_offset])
     rotate([90, 0, -90])
     888_5002();
 }
 
-module 888_5007(side=1) {
+module 888_5007(print_plate=false) {
     union() {
         difference() {
             hull() {
-                translate([-ALU_profile_width/2-ALU_profile_holder_wall_thickness*2, (-mid_base_width/2+ALU_profile_width)*side, 0])
-                rotate([-atan((mid_base_width/2-ALU_profile_width)/tower_height), 0 ,0])
-                translate([0, -ALU_profile_width*0.5-ALU_profile_width/2-ALU_profile_holder_wall_thickness ,tower_height/cos(atan((mid_base_width/2-ALU_profile_width)/tower_height))-ALU_profile_width*1.5-0.01])
+                translate([-ALU_profile_width/2-ALU_profile_holder_wall_thickness*2, -mid_base_width/2+ALU_profile_width, 0])
+                rotate([-tower_angle, 0 ,0])
+                translate([0, -ALU_profile_width*0.5-ALU_profile_width/2-ALU_profile_holder_wall_thickness ,tower_arm_length-ALU_profile_width*1.5-0.01])
                 cube([ALU_profile_width+ALU_profile_holder_wall_thickness*4, ALU_profile_width+ALU_profile_holder_wall_thickness*2, ALU_profile_width*1.5+ALU_profile_holder_wall_thickness*3]);
                 
                 
                 translate([-ALU_profile_width/2-ALU_profile_holder_wall_thickness*2, mid_base_width/2-ALU_profile_width, 0])
-                rotate([atan((mid_base_width/2-ALU_profile_width)/tower_height), 0 ,0])
-                translate([0, -ALU_profile_width*0.5+ALU_profile_width/2-ALU_profile_holder_wall_thickness ,tower_height/cos(atan((mid_base_width/2-ALU_profile_width)/tower_height))-ALU_profile_width*1.5-0.01])
+                rotate([tower_angle, 0 ,0])
+                translate([0, -ALU_profile_width*0.5+ALU_profile_width/2-ALU_profile_holder_wall_thickness ,tower_arm_length-ALU_profile_width*1.5-0.01])
                 cube([ALU_profile_width+ALU_profile_holder_wall_thickness*4, ALU_profile_width+ALU_profile_holder_wall_thickness*2, ALU_profile_width*1.5+ALU_profile_holder_wall_thickness*3]);
             }
             
             // profile arm cutter
-            translate([-ALU_profile_width/2, (-mid_base_width/2+ALU_profile_width)*side, 0])
-            rotate([-atan((mid_base_width/2-ALU_profile_width)/tower_height)*side, 0 ,0])
+            translate([-ALU_profile_width/2, -mid_base_width/2+ALU_profile_width, 0])
+            rotate([-tower_angle, 0 ,0])
             translate([0, -ALU_profile_width/2-ALU_profile_width/2 ,0])
-            cube([ALU_profile_width, ALU_profile_width, tower_height/cos(atan((200-ALU_profile_width)/tower_height))]);
+            cube([ALU_profile_width, ALU_profile_width, tower_arm_length]);
             
             translate([-ALU_profile_width/2, mid_base_width/2-ALU_profile_width, 0])
-            rotate([atan((mid_base_width/2-ALU_profile_width)/tower_height), 0 ,0])
+            rotate([tower_angle, 0 ,0])
             translate([0, -ALU_profile_width/2+ALU_profile_width/2 ,0])
-            cube([ALU_profile_width, ALU_profile_width, tower_height/cos(atan((200-ALU_profile_width)/tower_height))]);
+            cube([ALU_profile_width, ALU_profile_width, tower_arm_length]);
             
             // bottom profile screws holes
             hull() {
-                translate([0, (-mid_base_width/2+ALU_profile_width)*side, 0])
-                rotate([-atan((mid_base_width/2-ALU_profile_width)/tower_height)*side, 0 ,0])
-                translate([0, ALU_profile_width+ALU_profile_holder_wall_thickness, tower_height/cos(atan((200-ALU_profile_width)/tower_height))-ALU_profile_width])
+                translate([0, -mid_base_width/2+ALU_profile_width, 0])
+                rotate([-tower_angle, 0 ,0])
+                translate([0, ALU_profile_width+ALU_profile_holder_wall_thickness, tower_arm_length-ALU_profile_width])
                 rotate([90, 0, 0])
-                cylinder(h=ALU_profile_width, d=M5_nut_diameter+5, $fn=50);
+                cylinder(h=ALU_profile_width, d=M6_nut_diameter+5, $fn=50);
                 
                 translate([0, mid_base_width/2-ALU_profile_width, 0])
-                rotate([atan((mid_base_width/2-ALU_profile_width)/tower_height), 0 ,0])
-                translate([0, -ALU_profile_holder_wall_thickness, tower_height/cos(atan((200-ALU_profile_width)/tower_height))-ALU_profile_width])
+                rotate([tower_angle, 0 ,0])
+                translate([0, -ALU_profile_holder_wall_thickness, tower_arm_length-ALU_profile_width])
                 rotate([90, 0, 0])
-                cylinder(h=ALU_profile_width, d=M5_nut_diameter+5, $fn=50);
+                cylinder(h=ALU_profile_width, d=M6_nut_diameter+5, $fn=50);
             }
             
             // profile screws main holes
-            translate([0, (-mid_base_width/2+ALU_profile_width)*side, 0])
-            rotate([-atan((mid_base_width/2-ALU_profile_width)/tower_height)*side, 0 ,0])
-            translate([0, ALU_profile_width*2, tower_height/cos(atan((200-ALU_profile_width)/tower_height))-ALU_profile_width])
+            translate([0, -mid_base_width/2+ALU_profile_width, 0])
+            rotate([-tower_angle, 0 ,0])
+            translate([0, ALU_profile_width*2, tower_arm_length-ALU_profile_width])
             rotate([90, 0, 0])
-            cylinder(h=ALU_profile_width*4, d=M5_screw_diameter, $fn=50);
+            cylinder(h=ALU_profile_width*4, d=M6_screw_diameter, $fn=50);
             
             translate([0, mid_base_width/2-ALU_profile_width, 0])
-            rotate([atan((mid_base_width/2-ALU_profile_width)/tower_height), 0 ,0])
-            translate([0, ALU_profile_width*2, tower_height/cos(atan((200-ALU_profile_width)/tower_height))-ALU_profile_width])
+            rotate([tower_angle, 0 ,0])
+            translate([0, ALU_profile_width*2, tower_arm_length-ALU_profile_width])
             rotate([90, 0, 0])
-            cylinder(h=ALU_profile_width*4, d=M5_screw_diameter, $fn=50);
+            cylinder(h=ALU_profile_width*4, d=M6_screw_diameter, $fn=50);
             
-            translate([0, (-mid_base_width/2+ALU_profile_width)*side, 0])
-            rotate([-atan((mid_base_width/2-ALU_profile_width)/tower_height)*side, 0 ,0])
-            translate([0, -ALU_profile_width/2, tower_height/cos(atan((200-ALU_profile_width)/tower_height))-12])
+            translate([0, -mid_base_width/2+ALU_profile_width, 0])
+            rotate([-tower_angle, 0 ,0])
+            translate([0, -ALU_profile_width/2, tower_arm_length-12])
             rotate([90, 0, 0])
-            cylinder(h=ALU_profile_width, d=M5_screw_diameter, $fn=50);
+            cylinder(h=ALU_profile_width, d=M6_screw_diameter, $fn=50);
             
             translate([0, mid_base_width/2-ALU_profile_width, 0])
-            rotate([atan((mid_base_width/2-ALU_profile_width)/tower_height), 0 ,0])
-            translate([0, ALU_profile_width*1.5, tower_height/cos(atan((mid_base_width/2-ALU_profile_width)/tower_height))-12])
+            rotate([tower_angle, 0 ,0])
+            translate([0, ALU_profile_width*1.5, tower_arm_length-12])
             rotate([90, 0, 0])
-            cylinder(h=ALU_profile_width, d=M5_screw_diameter, $fn=50);
+            cylinder(h=ALU_profile_width, d=M6_screw_diameter, $fn=50);
             
             // drag tenzometer attachment point
-            translate([0, 0, -ALU_profile_width+tower_height/cos(atan((mid_base_width/2-ALU_profile_width)/tower_height))-75+strain_gauge_screw_distance/2])
+            translate([0, 0, tower_height-tower_drag_z_offset+strain_gauge_screw_distance/2])
             rotate([90, 0, -90])
             union () {
                 cylinder(h=ALU_profile_width, d=M4_screw_diameter, $fn=50);
                 cylinder(h=ALU_profile_width/3, d=M4_nut_diameter, $fn=6);
             }
             
-            translate([0, 0, -ALU_profile_width+tower_height/cos(atan((mid_base_width/2-ALU_profile_width)/tower_height))-75-strain_gauge_screw_distance/2])
+            translate([0, 0, tower_height-tower_drag_z_offset-strain_gauge_screw_distance/2])
             rotate([90, 0, -90])
             union () {
                 cylinder(h=ALU_profile_width, d=M4_screw_diameter, $fn=50);
@@ -144,13 +144,14 @@ module 888_5007(side=1) {
             }
         }
         
+        // main rotor attachment point
         translate([(608_bearing_outer_diameter+10+ALU_profile_width)/2+ALU_profile_holder_wall_thickness+15, ALU_profile_width/2, tower_height-12])
         rotate([0, 90, -90])
         union() {
             difference() {
                 hull() {
-                    translate([-ALU_profile_width*.75, -(608_bearing_outer_diameter+10)/2-15, 0])
-                    cube([ALU_profile_width*1.5, 3, ALU_profile_width]);
+                    translate([-608_bearing_outer_diameter/2-10/2, -(608_bearing_outer_diameter+10)/2-15, 0])
+                    cube([608_bearing_outer_diameter+10, 3, ALU_profile_width]);
                     cylinder(h=ALU_profile_width, d=608_bearing_outer_diameter+10, $fn=100);
                 }
                 translate([0, 0, -5])
@@ -163,8 +164,10 @@ module 888_5007(side=1) {
                 cylinder(h=608_bearing_thickness, d=608_bearing_outer_diameter, $fn=100);
             }
         
-            translate([0, 0, 608_bearing_thickness])
-            888_5011();
+            if(!print_plate) {
+                translate([0, 0, 608_bearing_thickness])
+                888_5011();
+            }
         }
     }   
 }

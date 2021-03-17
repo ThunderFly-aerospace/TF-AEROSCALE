@@ -4,16 +4,6 @@ layer_thickness = 0.3;
 global_clearance = 0.5;
 
 
-// scale parameters
-base_length = 500;
-tower_height = 175;
-mid_base_width = 500;
-mid_base_height = 160;
-mid_base_length = 500;
-mid_base_x_offset = 50;
-base_mid_base_hinge_offset = 50;
-
-
 //Screw diameter and nut for M10 [mm]
 M10_screw_diameter = 10.4;
 M10_head_height = 10;
@@ -190,3 +180,17 @@ R01_vyska_prekryti_statoru=10;
 
 g3_0_cone1 = 70;
 g3_0_srcew_dist = 55;
+
+
+
+// scale parameters
+base_length = 500;
+mid_base_width = 500;
+mid_base_height = 200;
+mid_base_length = 500;
+mid_base_x_offset = 50;
+base_mid_base_hinge_offset = 50;
+tower_height = 185;
+tower_angle = atan((mid_base_width/2-ALU_profile_width-10)/tower_height);
+tower_arm_length = tower_height/cos(tower_angle);
+tower_drag_z_offset = 22;
