@@ -28,9 +28,9 @@ module 888_5004() {
             translate([ALU_profile_width/-2-ALU_profile_holder_wall_thickness, -ALU_profile_holder_wall_thickness*2-5+.01, 0])
             cube([ALU_profile_width+ALU_profile_holder_wall_thickness*2, ALU_profile_holder_wall_thickness*2, ALU_profile_width]);
 
-            translate([M6_nut_height/2, height, ALU_profile_width/2])
+            translate([(3+M6_nut_height)/2, height, ALU_profile_width/2])
             rotate([0, 90, 0])
-            cylinder(d=608_bearing_outer_diameter, h=50+M6_nut_height, center=true, $fn=40);
+            cylinder(d=608_bearing_outer_diameter, h=50+3+M6_nut_height, center=true, $fn=40);
         }
 
         translate([-(ALU_profile_width+ALU_profile_holder_wall_thickness*2+4)/2, 0, -0.1])
@@ -39,10 +39,11 @@ module 888_5004() {
         translate([-50/2-0.1, height, ALU_profile_width/2])
         rotate([0, 90, 0])
         union() {
-            cylinder(d=M8_screw_diameter, h=70+2, $fn=20);
+            cylinder(d=M8_screw_diameter, h=50, $fn=20);
+            cylinder(d=M6_screw_diameter, h=70, $fn=20);
             
-            translate([0, 0, 50])
-            cylinder(d=M8_nut_diameter, h=70+2, $fn=6);
+            translate([0, 0, 50+3])
+            cylinder(d=M6_nut_diameter, h=70, $fn=6);
         }
     }
 }
