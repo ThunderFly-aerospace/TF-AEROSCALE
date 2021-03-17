@@ -177,7 +177,7 @@ color([0, 1, 1])
 888_5009();
 
 // drag strain gauge attachment point
-translate([-ALU_profile_width/2-ALU_profile_holder_wall_thickness*2+strain_gauge_width-4, 0, tower_height-strain_gauge_length/2-tower_drag_z_offset/2+2+mid_base_height+ALU_profile_width*2+ALU_profile_holder_wall_thickness*2])
+translate([-ALU_profile_width/2-ALU_profile_holder_wall_thickness*2+strain_gauge_width+4, 0, tower_height-strain_gauge_length/2-tower_drag_z_offset/2+2+mid_base_height+ALU_profile_width*2+ALU_profile_holder_wall_thickness*2])
 rotate([0, 90, 180])
 tenzometer(mounting_part=false);
 
