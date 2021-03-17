@@ -89,8 +89,8 @@ rotate([90, 0, -90])
 color([0, 1, 1])
 888_5004();
 
-translate([-side_pillars_offset, -base_width/2+ALU_profile_width*2-ALU_profile_holder_wall_thickness-5, mid_base_height-mid_base_height_offset])
-rotate([90, 0 ,-90])
+translate([-side_pillars_offset-ALU_profile_width, -base_width/2+ALU_profile_width*2-ALU_profile_holder_wall_thickness-5, mid_base_height-mid_base_height_offset])
+rotate([90, 0 ,90])
 color([0, 1, 1])
 888_5004();
 
