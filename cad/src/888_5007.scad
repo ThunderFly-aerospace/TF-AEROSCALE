@@ -19,9 +19,11 @@ module 888_5007_attachment_points() {
     ALU_profile(height=tower_arm_length);
     
     // drag attachment point
-    translate([-ALU_profile_width/2-ALU_profile_holder_wall_thickness*3, 0, tower_height-tower_drag_z_offset])
-    rotate([90, 0, -90])
-    888_5002();
+    translate([-ALU_profile_width/2-ALU_profile_holder_wall_thickness*2+strain_gauge_width-4, 0, tower_height-strain_gauge_length/2-tower_drag_z_offset/2+2])
+    rotate([0, -90, 0])
+    translate([-strain_gauge_length/2, -strain_gauge_width/2, 0])
+    color([0, 0, 1])
+    cube([strain_gauge_length, strain_gauge_width, strain_gauge_width]);
 }
 
 module 888_5007(print_plate=false) {
@@ -105,6 +107,13 @@ module 888_5007(print_plate=false) {
                 cylinder(h=ALU_profile_width, d=M4_screw_diameter, $fn=50);
                 cylinder(h=ALU_profile_width/3, d=M4_nut_diameter, $fn=6);
             }
+            
+            translate([-ALU_profile_width/2-ALU_profile_holder_wall_thickness*2+strain_gauge_width-4, 0, tower_height-strain_gauge_length/2-tower_drag_z_offset/2+2])
+            rotate([0, -90, 0])
+            translate([-strain_gauge_length/2, -strain_gauge_width/2, 0])
+            cube([strain_gauge_length, strain_gauge_width, strain_gauge_width]);
+            
+            
             
             // angle adjustment screws holes
             adjustment_screw_holes_width = 34;
