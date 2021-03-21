@@ -60,9 +60,13 @@ class BRIDGEADC01:
         self.iovalue = 0b00
         self.data_length = self.AD7730_24bitDATA_MODE
         self.reference = self.AD7730_REFERENCE_5V
-        self.input_range = self.AD7730_80mVIR_MODE
+        #self.input_range = self.AD7730_80mVIR_MODE
+        self.input_range =self.AD7730_10mVIR_MODE
         self.clock_enable = self.AD7730_MCLK_ENABLE_MODE
         self.burn_out = self.AD7730_BURNOUT_DISABLE
+
+        self.calibrationCoeficient=[1.0,1.0]
+        self.currentChannel=-1;
 
 
     def reset(self):
@@ -180,7 +184,7 @@ class BRIDGEADC01:
         mode_MSB = (mode << 5) + (polarity << 4) + (den << 3) + (iovalue << 1) + data_length
         mode_LSB = (reference << 7) + (0b0 << 6) + (input_range << 4) + (clock_enable << 3) + (burn_out << 2) + channel
     
-        self.single_write(self.AD7730_MODE_REG, [mode_MSB, mode_LSB])
+        self.single_write(self.AD7730_MODE_REG, [mode_MSB, mode_LSB])        
 
     def setFilter(self):
         '''
@@ -198,6 +202,7 @@ class BRIDGEADC01:
         if channel_num==1:
             channel = self.AD7730_AIN2P_AIN2N
 
+        self.currentChannel=channel_num
         self.setMode(
                          mode = mode
                         ,polarity=self.polarity  
@@ -210,6 +215,7 @@ class BRIDGEADC01:
                         ,burn_out = self.burn_out
                         ,channel = channel
 			        )
+        time.sleep(0.25)
         self.wait()
 
     def systemZeroCalibration(self,channel_num):
@@ -253,14 +259,14 @@ class BRIDGEADC01:
             value -= 0x800000
         return value
 
-    def getGain(self):
+    def getFullScaleRegister(self):
         '''
         Read gain register for last used selected channel
         '''
         return self.getReg24bit(self.AD7730_GAIN_REG)
 
 
-    def getOffset(self):
+    def getOffsetRegister(self):
         '''
         Read offset register for last used selected channel
         '''
@@ -276,16 +282,31 @@ class BRIDGEADC01:
         mode = self.single_read(self.AD7730_MODE_REG)
         mode[1] = (mode[1] & 0b11111100) | channel
         self.single_write(self.AD7730_MODE_REG, mode)
+        self.currentChannel=channel_num
 
-    def setGain(self, gain):
+    def setFullScaleRegister(self, gainReg):
         '''
-        ??? Set gain register value for last used channel?
+        Set gain register value for last used channel -
+        gain is about Register/0x400000.
+        https://ez.analog.com/data_converters/precision_adcs/w/documents/3067/ad7730-calibration-coefficient
         '''
-        self.setReg24bit(self.AD7730_GAIN_REG,gain)
+        self.setReg24bit(self.AD7730_GAIN_REG,gainReg)
 
-    def setOffset(self, offset):
+    def setOffsetRegister(self, offset):
         '''
-        ??? Set gain register value for last used channel?
+        Set offset register value for last used channel.
         '''
         self.setReg24bit(self.AD7730_OFFSET_REG,offset)
+
+    def setCalibrationGain(self, coeficient):
+        '''
+        Set calibration gain coeficient
+        result from ADC is multiplied by this coeficient to get results in some Weight units 
+        '''
+        self.calibrationCoeficient[self.currentChannel]=coeficient
+
+    def measureWeightSingle(self, channel_num):
+        self.doSingleConversion(channel_num)
+        data=self.calibrationCoeficient[channel_num]*self.getData()
+        return data
 

@@ -38,6 +38,28 @@ print "SPI weight scale sensor with SPI interface. The interface is connected to
 
 spi = cfg.get_device("spi")
 
+def doCalibration(scale,channel):
+    scale.systemZeroCalibration(channel)
+    print "System Zero scale calibration completed.."
+    scale.internalFullScaleCalibration(channel)
+    print "Internal Full scale calibration completed..." 
+    scale.systemZeroCalibration(channel)
+    print "System Zero scale calibration completed..."
+
+    print "Offset register"
+    print scale.getOffsetRegister();
+    print "Full Scale regiser"
+    print scale.getFullScaleRegister();
+
+    raw_input("Place single unit on weight:")
+    scale.doSingleConversion(channel)
+    weight=scale.getData()
+    scale.setCalibrationGain(1.0/weight);
+    print "Calibration coef:"
+    print 1.0/weight
+    print "Done."
+
+
 try:
     print "SPI configuration.."
     spi.SPI_config(spi.I2CSPI_MSB_FIRST| spi.I2CSPI_MODE_CLK_IDLE_LOW_DATA_EDGE_LEADING| spi.I2CSPI_CLK_461kHz)
@@ -49,35 +71,14 @@ try:
 
     scale.setFilter()
 
-    channel=0;
-    scale.systemZeroCalibration(channel)
-    print "System Zero scale calibration completed.."
-    scale.internalFullScaleCalibration(channel)
-    print "Internal Full scale calibration completed..." 
-    scale.systemZeroCalibration(channel)
-    print "System Zero scale calibration completed.. Start reading the data.."
+    doCalibration(scale,0)
+    doCalibration(scale,1)
 
-    print scale.getOffset();
-    print scale.getGain();
-
-    channel=1;
-    scale.systemZeroCalibration(channel)
-    print "System Zero scale calibration completed.."
-    scale.internalFullScaleCalibration(channel)
-    print "Internal Full scale calibration completed..." 
-    scale.systemZeroCalibration(channel)
-    print "System Zero scale calibration completed.. Start reading the data.."
-
-    print scale.getOffset();
-    print scale.getGain();
- 
     scale.setFilter()
  
     while 1:
-        scale.doSingleConversion(0)
-        channel1 = scale.getData()
-        scale.doSingleConversion(1)
-        channel2 = scale.getData()
+        channel1 = scale.measureWeightSingle(0)
+        channel2 = scale.measureWeightSingle(1)
         data = np.array([channel1,channel2])
         print data
 
