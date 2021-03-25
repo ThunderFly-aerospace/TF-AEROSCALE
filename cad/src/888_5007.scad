@@ -148,22 +148,22 @@ module 888_5007(print_plate=false) {
         }
         
         // main rotor attachment point
-        translate([(608_bearing_outer_diameter+10+ALU_profile_width)/2+ALU_profile_holder_wall_thickness+15, ALU_profile_width/2, tower_height-12])
+        translate([(608_bearing_outer_diameter+10+ALU_profile_width)/2+ALU_profile_holder_wall_thickness+15, 26/2, tower_height-12])
         rotate([0, 90, -90])
         union() {
             difference() {
                 hull() {
                     translate([-608_bearing_outer_diameter/2-10/2, -(608_bearing_outer_diameter+10)/2-15, 0])
-                    cube([608_bearing_outer_diameter+10, 3, ALU_profile_width]);
-                    cylinder(h=ALU_profile_width, d=608_bearing_outer_diameter+10, $fn=100);
+                    cube([608_bearing_outer_diameter+10, 3, 26]);
+                    cylinder(h=26, d=608_bearing_outer_diameter+10, $fn=100);
                 }
                 translate([0, 0, -5])
-                cylinder(h=ALU_profile_width+10, d=M6_screw_diameter+10, $fn=100);
+                cylinder(h=26+10, d=M6_screw_diameter+10, $fn=100);
                 
                 translate([0, 0, -.01])
                 cylinder(h=608_bearing_thickness, d=608_bearing_outer_diameter, $fn=100);
                 
-                translate([0, 0, ALU_profile_width-608_bearing_thickness+.01])
+                translate([0, 0, 26-608_bearing_thickness+.01])
                 cylinder(h=608_bearing_thickness, d=608_bearing_outer_diameter, $fn=100);
             }
         

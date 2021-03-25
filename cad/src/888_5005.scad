@@ -15,13 +15,21 @@ module 888_5005(print_plate=false) {
         }
         
         
-        translate([ALU_profile_width/2+ALU_profile_holder_wall_thickness, 5, ALU_profile_width*1.5-7])
+        translate([ALU_profile_width/2+ALU_profile_holder_wall_thickness, .1, ALU_profile_width*1.5-7])
         rotate([90, 0, 0])
-        cylinder(h=ALU_profile_width, d=M6_screw_diameter, $fn=20);
+        union() {
+            cylinder(h=ALU_profile_width, d=M6_screw_diameter, $fn=20);
+            translate([0, 0, 0])
+            cylinder(h=ALU_profile_holder_wall_thickness, d=M6_head_diameter, $fn=20);
+        }
             
-        translate([ALU_profile_width/2+ALU_profile_holder_wall_thickness, 5, 7])
+        translate([ALU_profile_width/2+ALU_profile_holder_wall_thickness, .1, 7])
         rotate([90, 0, 0])
-        cylinder(h=ALU_profile_width, d=M6_screw_diameter, $fn=20);
+        union() {
+            cylinder(h=ALU_profile_width, d=M6_screw_diameter, $fn=20);
+            translate([0, 0, 0])
+            cylinder(h=ALU_profile_holder_wall_thickness, d=M6_head_diameter, $fn=20);
+        }
     }
 }
 
@@ -56,4 +64,4 @@ module 888_5005_bearing_half(print_plate=false) {
     }
 }
 
-888_5005();
+888_5005(true);
