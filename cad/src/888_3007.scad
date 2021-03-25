@@ -30,13 +30,13 @@ module 888_3007(draft){
         }
 
         //srouby pro montaz profilu
-        translate([-maximum_printable_size/2 + M5_screw_diameter*1.5, 0, ALU_profile_width/2])
+        translate([-maximum_printable_size/2 + M6_screw_diameter*1.5, 0, ALU_profile_width/2])
             rotate([90, 0, 0])
-                cylinder(d=M5_screw_diameter, h=g3_0_cone1*2, $fn=20, center=true);
+                cylinder(d=M6_screw_diameter, h=g3_0_cone1*2, $fn=20, center=true);
 
-        translate([maximum_printable_size/2 - M5_screw_diameter*1.5, 0, ALU_profile_width/2])
+        translate([maximum_printable_size/2 - M6_screw_diameter*1.5, 0, ALU_profile_width/2])
             rotate([90, 0, 0])
-                cylinder(d=M5_screw_diameter, h=g3_0_cone1*2, $fn=20, center=true);
+                cylinder(d=M6_screw_diameter, h=g3_0_cone1*2, $fn=20, center=true);
 
         // otvor pro AL profil
         translate([0, posunuti_vahy, 0])
