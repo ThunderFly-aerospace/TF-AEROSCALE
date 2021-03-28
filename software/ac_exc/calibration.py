@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 #uncomment for debbug purposes
 #import logging
@@ -18,33 +18,11 @@ Get calibration data from BRIDGEADC01 module.
 """
 
 def doCalibration(scale, channel):
-    print "Calibration of channel %d:" % channel
-    print "Set zero load."
-    raw_input("Press Enter to continue...")
-
-    scale.systemZeroCalibration(channel)
-
-    print "Set full load" 
-    data=raw_input("Type load force and Press Enter to continue:")
-    scale.systemFullScaleCalibration(channel)
-    weight=1;#float(data)
- 
-    #print "Set zero load"
-    #raw_input("Press Enter to continue...")
-    #scale.systemZeroCalibration(channel)
-
-    print "Calibration complete."
-
-    offset=scale.getOffset();
-    gain=scale.getGain();
-    print "offset:"
-    print offset
-
-    print "gain:"
-    print gain
-
-    print "weight:"
-    print weight
+    
+    scale.doCalibration(channel)
+    offset=scale.getOffsetRegister();
+    gain=scale.getFullScaleRegister();
+    weight=scale.getUnitCalibrationGain();
 
     return [offset,gain,weight]
 
@@ -64,11 +42,11 @@ cfg.initialize()
 
 spi = cfg.get_device("spi")
 
-print "SPI configuration.."
+print("SPI configuration..")
 spi.SPI_config(spi.I2CSPI_MSB_FIRST| spi.I2CSPI_MODE_CLK_IDLE_LOW_DATA_EDGE_LEADING| spi.I2CSPI_CLK_461kHz)
 spi.GPIO_config(spi.I2CSPI_SS2 | spi.I2CSPI_SS3, spi.SS2_INPUT | spi.SS3_INPUT)
 
-print "Weight scale configuration.."
+print("Weight scale configuration..")
 scale = BRIDGEADC01(spi,spi.I2CSPI_SS0,1)
 scale.reset()
 

@@ -304,7 +304,7 @@ class BRIDGEADC01:
         '''
         self.setReg24bit(self.AD7730_OFFSET_REG,offset)
 
-    def setCalibrationGain(self, coeficient):
+    def setUnitCalibrationGain(self, coeficient):
         '''
         Set calibration gain coeficient
         result from ADC is multiplied by this coeficient to get results in some Weight units 
@@ -333,7 +333,7 @@ class BRIDGEADC01:
         input("Place single unit of weight on scale:")
         self.doSingleConversion(channel)
         weight=self.getData()
-        self.setCalibrationGain(1.0/weight);
+        self.setUnitCalibrationGain(1.0/weight);
         print("Calibration coef:")
         print(1.0/weight)
         print("Done.")
