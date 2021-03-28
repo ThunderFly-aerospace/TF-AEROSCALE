@@ -317,23 +317,24 @@ class BRIDGEADC01:
         return data
 
     def doCalibration(self,channel):
+        input("Place zero weight on scale:")
         self.systemZeroCalibration(channel)
-        print "System Zero scale calibration completed.."
+        print("System Zero scale calibration completed..")
         self.internalFullScaleCalibration(channel)
-        print "Internal Full scale calibration completed..." 
+        print("Internal Full scale calibration completed...")
         self.systemZeroCalibration(channel)
-        print "System Zero scale calibration completed..."
+        print("System Zero scale calibration completed...")
 
-        print "Offset register"
-        print self.getOffsetRegister();
-        print "Full Scale regiser"
-        print self.getFullScaleRegister();
+        print("Offset register")
+        print(self.getOffsetRegister());
+        print("Full Scale regiser")
+        print(self.getFullScaleRegister());
 
-        raw_input("Place single unit on weight:")
+        input("Place single unit of weight on scale:")
         self.doSingleConversion(channel)
         weight=self.getData()
         self.setCalibrationGain(1.0/weight);
-        print "Calibration coef:"
-        print 1.0/weight
-        print "Done."
+        print("Calibration coef:")
+        print(1.0/weight)
+        print("Done.")
 
