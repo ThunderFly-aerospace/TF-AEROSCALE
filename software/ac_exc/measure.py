@@ -49,17 +49,20 @@ try:
 
     scale.setFilter()
 
-    scale.setChannelOnly(0)
-    scale.setOffset(8395182)
-    scale.setGain(16777215)
-    print scale.getOffset();
-    print scale.getGain();
+    f = open("calibration.txt","r")
+    lines = f.readlines()
+    f.close()    
 
-    scale.setChannelOnly(1)
-    scale.setOffset(8387532)
-    scale.setGain(16777215)    
-    print scale.getOffset();
-    print scale.getGain();
+    i=0
+    for line in lines:
+        if i>1:
+            break
+        vals=line.split()
+        scale.setChannelOnly(i)
+        scale.setOffset(int(vals[0]))
+        scale.setGain(int(vals[1]))
+        scale.setCalibrationWeight(i,float(vals[2]))
+        i += 1
  
     while 1:
         scale.doSingleConversion(0)

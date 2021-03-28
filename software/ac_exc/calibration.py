@@ -18,28 +18,35 @@ Get calibration data from BRIDGEADC01 module.
 """
 
 def doCalibration(scale, channel):
-    print "Calibration of channel 0:"
+    print "Calibration of channel %d:" % channel
     print "Set zero load."
     raw_input("Press Enter to continue...")
 
     scale.systemZeroCalibration(channel)
 
     print "Set full load" 
-    raw_input("Press Enter to continue...")
+    data=raw_input("Type load force and Press Enter to continue:")
     scale.systemFullScaleCalibration(channel)
+    weight=1;#float(data)
  
-    print "Set zero load"
-    raw_input("Press Enter to continue...")
-    scale.systemZeroCalibration(channel)
+    #print "Set zero load"
+    #raw_input("Press Enter to continue...")
+    #scale.systemZeroCalibration(channel)
 
     print "Calibration complete."
 
+    offset=scale.getOffset();
+    gain=scale.getGain();
     print "offset:"
-    print scale.getOffset();
+    print offset
+
     print "gain:"
-    print scale.getGain();
+    print gain
 
+    print "weight:"
+    print weight
 
+    return [offset,gain,weight]
 
 
 LOGGER = logging.getLogger(__name__)
@@ -67,6 +74,11 @@ scale.reset()
 
 scale.setFilter()
 
-doCalibration(scale,0)
-doCalibration(scale,1) 
+channel0=doCalibration(scale,0)
+channel1=doCalibration(scale,1) 
+
+f=open("calibration.txt","w")
+f.write("%d %d %f\n" % tuple(channel0) )
+f.write("%d %d %f\n" % tuple(channel1) )
+f.close()
 

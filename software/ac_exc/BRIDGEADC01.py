@@ -272,6 +272,12 @@ class BRIDGEADC01:
         '''
         return self.getReg24bit(self.AD7730_OFFSET_REG)
 
+    def getUnitCalibrationGain(self):
+        '''
+        Read calibration parameter
+        '''
+        return self.calibrationCoeficient[self.currentChannel]
+
     def setChannelOnly(self, channel_num):
         if channel_num==0:
             channel = self.AD7730_AIN1P_AIN1N
@@ -309,4 +315,25 @@ class BRIDGEADC01:
         self.doSingleConversion(channel_num)
         data=self.calibrationCoeficient[channel_num]*self.getData()
         return data
+
+    def doCalibration(self,channel):
+        self.systemZeroCalibration(channel)
+        print "System Zero scale calibration completed.."
+        self.internalFullScaleCalibration(channel)
+        print "Internal Full scale calibration completed..." 
+        self.systemZeroCalibration(channel)
+        print "System Zero scale calibration completed..."
+
+        print "Offset register"
+        print self.getOffsetRegister();
+        print "Full Scale regiser"
+        print self.getFullScaleRegister();
+
+        raw_input("Place single unit on weight:")
+        self.doSingleConversion(channel)
+        weight=self.getData()
+        self.setCalibrationGain(1.0/weight);
+        print "Calibration coef:"
+        print 1.0/weight
+        print "Done."
 

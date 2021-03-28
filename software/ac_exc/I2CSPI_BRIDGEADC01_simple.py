@@ -38,27 +38,6 @@ print "SPI weight scale sensor with SPI interface. The interface is connected to
 
 spi = cfg.get_device("spi")
 
-def doCalibration(scale,channel):
-    scale.systemZeroCalibration(channel)
-    print "System Zero scale calibration completed.."
-    scale.internalFullScaleCalibration(channel)
-    print "Internal Full scale calibration completed..." 
-    scale.systemZeroCalibration(channel)
-    print "System Zero scale calibration completed..."
-
-    print "Offset register"
-    print scale.getOffsetRegister();
-    print "Full Scale regiser"
-    print scale.getFullScaleRegister();
-
-    raw_input("Place single unit on weight:")
-    scale.doSingleConversion(channel)
-    weight=scale.getData()
-    scale.setCalibrationGain(1.0/weight);
-    print "Calibration coef:"
-    print 1.0/weight
-    print "Done."
-
 
 try:
     print "SPI configuration.."
@@ -71,8 +50,8 @@ try:
 
     scale.setFilter()
 
-    doCalibration(scale,0)
-    doCalibration(scale,1)
+    scale.doCalibration(0)
+    scale.doCalibration(1)
 
     scale.setFilter()
  
