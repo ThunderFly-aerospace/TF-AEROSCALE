@@ -12,6 +12,7 @@ Knowledge of aircraft wings is important for optimizing their flight parameters.
 * Polar measurement (Lift and drag)
 * Airspeed and groundspeed measurement
 * RPM measurement (In case of rotor)
+* Use on a car roof or in a wind tunnel
 
 
 ![Base with strain gauges](doc/img/complete.png)
