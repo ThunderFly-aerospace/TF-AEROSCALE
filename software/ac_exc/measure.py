@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 #uncomment for debbug purposes
 #import logging
@@ -34,40 +34,41 @@ cfg = config.Config(
 
 cfg.initialize()
 
-print "SPI weight scale sensor with SPI interface. The interface is connected to the I2CSPI module which translates signalls. \r\n"
+print("SPI weight scale sensor with SPI interface. The interface is connected to the I2CSPI module which translates signalls. \r\n")
 
 spi = cfg.get_device("spi")
 
 try:
-    print "SPI configuration.."
+    print("SPI configuration..")
     spi.SPI_config(spi.I2CSPI_MSB_FIRST| spi.I2CSPI_MODE_CLK_IDLE_LOW_DATA_EDGE_LEADING| spi.I2CSPI_CLK_461kHz)
     spi.GPIO_config(spi.I2CSPI_SS2 | spi.I2CSPI_SS3, spi.SS2_INPUT | spi.SS3_INPUT)
 
-    print "Weight scale configuration.."
+    print("Weight scale configuration..")
     scale = BRIDGEADC01(spi,spi.I2CSPI_SS0,1)
     scale.reset()
 
     scale.setFilter()
 
-    scale.setChannelOnly(0)
-    scale.setOffset(8395182)
-    scale.setGain(16777215)
-    print scale.getOffset();
-    print scale.getGain();
+    f = open("calibration.txt","r")
+    lines = f.readlines()
+    f.close()    
 
-    scale.setChannelOnly(1)
-    scale.setOffset(8387532)
-    scale.setGain(16777215)    
-    print scale.getOffset();
-    print scale.getGain();
+    i=0
+    for line in lines:
+        if i>1:
+            break
+        vals=line.split()
+        scale.setChannelOnly(i)
+        scale.setOffsetRegister(int(vals[0]))
+        scale.setFullScaleRegister(int(vals[1]))
+        scale.setUnitCalibrationGain(float(vals[2]))
+        i += 1
  
     while 1:
-        scale.doSingleConversion(0)
-        channel1 = scale.getData()
-        scale.doSingleConversion(1)
-        channel2 = scale.getData()
+        channel1 = scale.measureWeightSingle(0)
+        channel2 = scale.measureWeightSingle(1)
         data = np.array([channel1,channel2])
-        print data
+        print(data)
 
 except KeyboardInterrupt:
     sys.exit(0)
