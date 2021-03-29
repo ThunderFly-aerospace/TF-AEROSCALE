@@ -1,4 +1,5 @@
-# TF-AEROSCALE - Force balance for measuring lift and drag of aerodynamic surfaces
+# TF-AEROSCALE
+**Force balance for measuring lift and drag of aerodynamic surfaces**
 
 Knowledge of aircraft wings is important for optimizing their flight parameters. This scale-type device is used to measure the polar of the wing or rotor. The device is designed so that it is possible to measure wings/rotors of various sizes. Because it is difficult to obtain a enought large wind tunnel, weight is designed so that it can be operated, for example, on the roof of a [TF-R1 driving car](https://github.com/ThunderFly-aerospace/TF-R1) that ensures suficiently high quality laminar flow. 
 
