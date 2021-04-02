@@ -56,7 +56,7 @@ channel0=doCalibration(scale,0)
 channel1=doCalibration(scale,1) 
 
 f=open("calibration.txt","w")
-f.write("%d %d %f\n" % tuple(channel0) )
-f.write("%d %d %f\n" % tuple(channel1) )
+f.write("%d %d %g\n" % tuple(channel0) )
+f.write("%d %d %g\n" % tuple(channel1) )
 f.close()
 
