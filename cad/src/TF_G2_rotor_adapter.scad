@@ -40,13 +40,13 @@ module TF_G2_rotor_adapter(){
         translate([-rod_size/2, 0, bearing_outer_diameter/2 + Bwall]) rotate([0, 90, 0])
         cylinder(d = bearing_outer_diameter + Bwall*2, h = bearing_shaft_length + bearing_shaft_shift + rod_size/2);
         
-        translate([-rod_size/2-2, -12.5, -BaseThickness-5])
-        cube([bearing_outer_diameter, 25, 35]);
+        translate([-rod_size/2-7, -12.5, -BaseThickness-5])
+        cube([bearing_outer_diameter+5, 25, 35]);
         
         
-        translate([-10, 0, bearing_outer_diameter/2 + Bwall])
+        translate([-12, 0, bearing_outer_diameter/2 + Bwall])
         rotate([0, 90, 0])
-        rotor_joint(2);
+        rotor_joint(2, thickness=5);
     }
 
 
