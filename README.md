@@ -18,6 +18,19 @@ Knowledge of aircraft wings is important for optimizing their flight parameters.
 
 ![Rotor mount](doc/img/888_5502.png)
 
+## Parameters
+
+| Parameter | Value | Description |
+|-----------|-------|-------------|
+| Sensing element | strain gauges |  |
+| Interface | USB | The data readout is realised by direct control of I2C devices |
+| Operating and storage temperature | -20 - +40°C |  |
+| Operational humidity | 0-100 % | At humidity above 80% the performance of the sensors could be degraded in case of prolonged time periods |
+| Input power | USB powered | |
+| Mass | 5 kg |  |
+| Dimensions |  600 x 560 x 600 mm| Height x width x lenght |
+| Weather resistance | IP40 | |
+
 # Build
 
 Repository use git submodules therefore an initialization of repository is needed prior make.
