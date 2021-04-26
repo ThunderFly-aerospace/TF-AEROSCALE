@@ -14,10 +14,6 @@ Knowledge of aircraft wings is important for optimizing their flight parameters.
 * RPM measurement (In case of rotor)
 * Use on a car roof or in a wind tunnel
 
-![Base with strain gauges](doc/img/complete.png)
-
-![Rotor mount](doc/img/888_5502.png)
-
 ## Parameters
 
 | Parameter | Value | Description |
@@ -30,6 +26,10 @@ Knowledge of aircraft wings is important for optimizing their flight parameters.
 | Mass | 5 kg |  |
 | Dimensions |  600 x 560 x 600 mm| Height x width x lenght |
 | Weather resistance | IP40 | |
+
+![Base with strain gauges](doc/img/complete.png)
+
+![Rotor mount](doc/img/888_5502.png)
 
 # Build
 
