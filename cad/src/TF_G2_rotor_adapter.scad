@@ -67,8 +67,8 @@ module TF_G2_rotor_adapter(){
         rotate([0, 90, 0])
             cylinder(d = bearing_outer_diameter, h = bearing_thickness + 0.1 + 100);
 
-    translate([-9/2-6, -9/2, bearing_outer_diameter + Bwall*4])
-        cube([15,9,rod_y_distance]);
+    translate([-9/2-11, -9/2, bearing_outer_diameter + Bwall*4])
+        cube([20,9,rod_y_distance]);
 
     // TFPROBE01 RPM sensor
     translate([-TFPROBE01_PCB_thickness + rod_size/2 - TFPROBE01_sensor_height , -TFPROBE01_PCB_width/2, bearing_outer_diameter + Bwall*4])
