@@ -40,21 +40,25 @@ module TF_G2_rotor_adapter(){
         translate([-rod_size/2, 0, bearing_outer_diameter/2 + Bwall]) rotate([0, 90, 0])
         cylinder(d = bearing_outer_diameter + Bwall*2, h = bearing_shaft_length + bearing_shaft_shift + rod_size/2);
         
-        translate([-rod_size/2-7, -12.5, -BaseThickness-5])
-        cube([bearing_outer_diameter+5, 25, 35]);
         
-        
-        translate([-12, 0, bearing_outer_diameter/2 + Bwall])
-        rotate([0, 90, 0])
-        rotor_joint(2, thickness=5);
+        difference() {
+            hull() {
+                translate([-rod_size/2-7, -12.5, -BaseThickness-5])
+                cube([bearing_outer_diameter+5, 25, 35]);
+                
+                translate([-12, 0, bearing_outer_diameter/2 + Bwall])
+                rotate([0, 90, 0])
+                rotor_joint_plate(thickness=5);
+            }
+            
+            translate([-14.5, 0, bearing_outer_diameter/2 + Bwall])
+            rotate([0, 90, 0])
+            rotor_joint_holes(2,10);
+        }
     }
 
 
     // Zapusteni pro loziska
-    translate([bearing_shaft_shift + bearing_shaft_length - bearing_shaft_length + bearing_thickness - 105, 0, bearing_outer_diameter/2 + Bwall])
-        rotate([0, 90, 0])
-            cylinder(d = bearing_outer_diameter+2, h = 100);
-    
     translate([bearing_shaft_shift + bearing_shaft_length - bearing_shaft_length + bearing_thickness - 100, 0, bearing_outer_diameter/2 + Bwall])
         rotate([0, 90, 0])
             cylinder(d = bearing_outer_diameter, h = 100);
