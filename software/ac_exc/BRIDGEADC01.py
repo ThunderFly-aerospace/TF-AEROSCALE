@@ -49,7 +49,18 @@ class BRIDGEADC01:
         self.AD7730_AIN1P_AIN1N         =0b00
         self.AD7730_AIN2P_AIN2N         =0b01
         self.AD7730_AIN1N_AIN1N         =0b10 #nois test purpose - internaly connected together
-        self.AD7730_AIN1N_AIN2N         =0b11  
+        self.AD7730_AIN1N_AIN2N         =0b11 
+
+        self.AD7730_CHOP_DISABLE        =0b0 #choping of output data, mandatory for AC 
+        self.AD7730_CHOP_ENABLE         =0b1
+        self.AD7730_AC_DISABLE          =0b0 #enable AC excitation
+        self.AD7730_AC_ENABLE           =0b1       
+        self.AD7730_SKIP_DISABLE        =0b0 #skip second stage filter (FIR)(if AC you must enable or merge two measurement manualy)
+        self.AD7730_SKIP_ENABLE         =0b1       
+        self.AD7730_FAST_DISABLE        =0b0 #fast mode of second stage filter (FIR) 
+        self.AD7730_FAST_ENABLE         =0b1 #(if detect jump large than 1%of full range, do continous adveraging insted of FIR)  
+
+        self.baseFrequency=4915200
 
         if bipolar==1:
             self.polarity=self.AD7730_BIIPOLAR_MODE     
@@ -139,8 +150,6 @@ class BRIDGEADC01:
     def getReg24bit(self,reg):
         data = self.single_read(reg)
         value = (data[0] << 16) + (data[1] << 8) + data[2]
-        #if self.polarity==self.AD7730_BIIPOLAR_MODE:
-        #    value -= 0x800000
         return value
 
     def setReg24bit(self,reg,data):
@@ -184,16 +193,60 @@ class BRIDGEADC01:
         mode_MSB = (mode << 5) + (polarity << 4) + (den << 3) + (iovalue << 1) + data_length
         mode_LSB = (reference << 7) + (0b0 << 6) + (input_range << 4) + (clock_enable << 3) + (burn_out << 2) + channel
     
-        self.single_write(self.AD7730_MODE_REG, [mode_MSB, mode_LSB])        
+        self.single_write(self.AD7730_MODE_REG, [mode_MSB, mode_LSB])  
 
-    def setFilter(self):
+
+    def setFilterAC(self, askOutFreq):
+        return self.setFilter(askOutFreq,
+                    self.AD7730_SKIP_DISABLE,
+                    self.AD7730_FAST_DISABLE,
+                    self.AD7730_CHOP_ENABLE,
+                    self.AD7730_AC_ENABLE,
+                    0b0011)
+
+    def setFilter(self,askOutFreq,skip,fast,chop,ac,delay4bits):
         '''
-        Do some magic, (btw. set AC excitation)
+        Setup Filter register
         '''
-        data = self.single_read(self.AD7730_FILTER_REG)
-        data[2] = data[2] | 0b00110011
+        if delay4bits>0b1111:
+            print("wrong delay bits set 0b1111")
+            delay4bits=0b1111
+
+        m=1
+        if chop==0b1:
+            m=3
+
+        sf=int((self.baseFrequency/16/askOutFreq-delay4bits)/m)
+        print("SF:")
+        print(sf)
+
+        maxSF=2048
+        minSF=20
+        if skip==0b1 and chop==0b1:
+            minSF=20
+        if skip==0b1 and chop==0b0:
+            minSF=40
+        if skip==0b0 and chop==0b1:
+            minSF=75
+        if skip==0b0 and chop==0b0:
+            mintSF=150
+
+        if sf<minSF:
+            sf=minSF
+
+        if sf>maxSF:
+            sf=maxSF
+
+        realFreq=self.baseFrequency/16/(delay4bits+m*sf)
+        
+
+        mode_MSB = (sf>>4) & 0xff
+        mode_CSB = (((sf & 0b1111)<< 4) + (skip << 1) + fast) & 0xff
+        mode_LSB = ((ac << 5) + (chop << 4) + delay4bits) & 0xff
+
+        data = [mode_MSB,mode_CSB,mode_LSB]
         self.single_write(self.AD7730_FILTER_REG, data)
-        return data
+        return realFreq
 
     def blockingOperation(self,mode,channel_num):
         if channel_num==0:
@@ -249,6 +302,12 @@ class BRIDGEADC01:
         do single conversion of selected channel
         '''
         self.blockingOperation(self.AD7730_SCONVERSION_MODE,channel_num)
+
+    def startConntinuousConversion(self,channel_num):
+        '''
+        start continuous measurement of selected channel
+        '''
+        self.blockingOperation(self.AD7730_CCONVERSION_MODE,channel_num)       
 
     def getData(self):
         '''
@@ -311,9 +370,13 @@ class BRIDGEADC01:
         '''
         self.calibrationCoeficient[self.currentChannel]=coeficient
 
+    def measureWeight(self):
+        data=self.calibrationCoeficient[self.currentChannel]*self.getData()
+        return data
+
     def measureWeightSingle(self, channel_num):
         self.doSingleConversion(channel_num)
-        data=self.calibrationCoeficient[channel_num]*self.getData()
+        data=self.measureWeight()
         return data
 
     def doCalibration(self,channel):
