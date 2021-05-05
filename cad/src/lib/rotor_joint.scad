@@ -12,24 +12,26 @@ pro díl co má díry na matky ze shora
 
 include <../../parameters.scad>
 
-module rotor_joint(mode, thickness=10) {
-    module screw_nut_hole() {
-        difference() {
-            translate([(ALU_profile_width/2+ALU_profile_holder_wall_thickness+M4_screw_diameter), (ALU_profile_width/2+ALU_profile_holder_wall_thickness+M4_screw_diameter), 0])
-                cylinder(d=M4_screw_diameter, h=thickness+0.1, center=true, $fn=20);
-            translate([(ALU_profile_width/2+ALU_profile_holder_wall_thickness+M4_screw_diameter), (ALU_profile_width/2+ALU_profile_holder_wall_thickness+M4_screw_diameter), thickness/2+.01])
-                cylinder(d=M4_screw_diameter, h=1, $fn=20); 
-        }
-
-        hull() {
-            translate([(ALU_profile_width/2+ALU_profile_holder_wall_thickness+M4_screw_diameter), (ALU_profile_width/2+ALU_profile_holder_wall_thickness+M4_screw_diameter), 0])
-                rotate([0, 0, 30])
-                    cylinder(d=M4_nut_diameter, h=M4_nut_height, $fn=6, center=true);
-
-            translate([(ALU_profile_width/2+ALU_profile_holder_wall_thickness+M4_screw_diameter), (ALU_profile_width/2+ALU_profile_holder_wall_thickness+M4_screw_diameter)+M4_screw_diameter*2, 0])
-                cube([M4_nut_pocket, M4_screw_diameter, M4_nut_height], center=true);
-        }
+module screw_nut_hole(thickness=20) {
+    difference() {
+        translate([(ALU_profile_width/2+ALU_profile_holder_wall_thickness+M4_screw_diameter), (ALU_profile_width/2+ALU_profile_holder_wall_thickness+M4_screw_diameter), 0])
+            cylinder(d=M4_screw_diameter, h=thickness+0.1, center=true, $fn=20);
+        translate([(ALU_profile_width/2+ALU_profile_holder_wall_thickness+M4_screw_diameter), (ALU_profile_width/2+ALU_profile_holder_wall_thickness+M4_screw_diameter), thickness/2+.01])
+            cylinder(d=M4_screw_diameter, h=1, $fn=20); 
     }
+
+    hull() {
+        translate([(ALU_profile_width/2+ALU_profile_holder_wall_thickness+M4_screw_diameter), (ALU_profile_width/2+ALU_profile_holder_wall_thickness+M4_screw_diameter), 0])
+            rotate([0, 0, 30])
+                cylinder(d=M4_nut_diameter, h=M4_nut_height, $fn=6, center=true);
+
+        translate([(ALU_profile_width/2+ALU_profile_holder_wall_thickness+M4_screw_diameter), (ALU_profile_width/2+ALU_profile_holder_wall_thickness+M4_screw_diameter)+M4_screw_diameter*2, 0])
+            cube([M4_nut_pocket, M4_screw_diameter, M4_nut_height], center=true);
+    }
+}
+
+module rotor_joint(mode, thickness=10) {
+    screw_nut_hole(thickness=thickness);
 
     difference() {
         rotor_joint_plate(thickness=thickness);
