@@ -30,6 +30,7 @@ port = eval(sys.argv[1])
 cfg = config.Config(
     i2c = {
         "port": port,
+		"device": "smbus"
     },
 
     bus = [
@@ -52,7 +53,9 @@ try:
     scale = BRIDGEADC01(spi,spi.I2CSPI_SS0,1)
     scale.reset()
 
-    scale.setFilter()
+    freq=scale.setFilterAC(200)
+    sys.stdout.write("frekvence vyčítání: %4.2f;\n" %(freq))
+    sys.stdout.flush()
 
     f = open("calibration.txt","r")
     lines = f.readlines()
@@ -69,14 +72,19 @@ try:
         scale.setUnitCalibrationGain(float(vals[2]))
         i += 1
  
-    sys.stdout.write("datetime; channel1; channel2;\n")
+    sys.stdout.write("datetime; freq; channel1;\n")
     sys.stdout.flush()
+    scale.startConntinuousConversion(0)
+    lastTime=time.time();
     while 1:
+        #if scale.isBusy():
+        #    continue
+        currentTime=time.time();
         ts = datetime.datetime.utcfromtimestamp(time.time()).isoformat()
-        channel1 = scale.measureWeightSingle(0)
-        channel2 = scale.measureWeightSingle(1)
-        sys.stdout.write("%s; %+4.2f; %+4.2f;\n" %(ts, channel1, channel2))
+        channel1 = scale.measureWeight()
+        sys.stdout.write("%s; %4.1f; %+4.3f;\n" %(ts, 1/(currentTime-lastTime), channel1))
         sys.stdout.flush()
+        lastTime=currentTime
         
 except KeyboardInterrupt:
     sys.exit(0)
