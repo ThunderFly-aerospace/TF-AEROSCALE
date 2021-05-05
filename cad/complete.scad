@@ -10,6 +10,9 @@ use <./src/888_5006.scad>
 use <./src/888_5007.scad>
 use <./src/888_5008.scad>
 use <./src/888_5009.scad>
+use <./src/888_1001.scad>
+use <./src/888_1002.scad>
+use <./src/888_1003.scad>
 
 
 base_width = mid_base_width+ALU_profile_width*2+ALU_profile_holder_wall_thickness*2+M6_washer_thickness*2;
@@ -181,3 +184,14 @@ translate([-ALU_profile_width/2-ALU_profile_holder_wall_thickness*2+strain_gauge
 rotate([0, 90, 180])
 tenzometer(mounting_part=false);
 
+// calibration device
+translate([-base_length/2, -ALU_profile_width/2, mid_base_height+tower_height+20])
+rotate([0, 0, 180])
+color([1, 1, 0])
+union() {
+    888_1001();
+    
+    translate([calibration_arm_x_offset, -.5, calibration_arm_y_offset])
+    rotate([90, 0, 0])
+    888_1002();
+}
