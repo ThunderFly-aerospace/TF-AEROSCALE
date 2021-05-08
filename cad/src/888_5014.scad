@@ -94,8 +94,8 @@ module 888_5014_back() {
             cube([electro_box_length, electro_box_width, electro_box_height]);
             
             //ALU profile cutter
-            translate([-ALU_profile_width/2, -1-ALU_profile_width, -ALU_profile_width])
-            cube([electro_box_length, ALU_profile_width+2, ALU_profile_width+2]);
+            translate([-ALU_profile_width/2, -1-ALU_profile_width-35, -ALU_profile_width])
+            cube([electro_box_length, ALU_profile_width+2+35, ALU_profile_width+2]);
             
             //Side cutter
             translate([-ALU_profile_width/2, -ALU_profile_width+20+3, 20+2+3])
@@ -134,7 +134,7 @@ module 888_5014_back() {
             }
             
             //Bottom screw holes
-            translate([-10, -15-ALU_profile_width, -ALU_profile_width/2])
+            translate([-10, -15-35-ALU_profile_width, -ALU_profile_width/2])
             rotate([0, 90, 0])
             union() {
                 cylinder(h=50, d=M6_screw_diameter, $fn=100);
