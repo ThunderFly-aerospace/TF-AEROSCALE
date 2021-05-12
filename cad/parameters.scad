@@ -194,6 +194,9 @@ tower_height = 185;
 tower_angle = atan((mid_base_width/2-ALU_profile_width-10)/tower_height);
 tower_arm_length = tower_height/cos(tower_angle);
 tower_drag_z_offset = 22;
+electro_box_length = 225;
+electro_box_width = 165;
+electro_box_height = 51.5;
 
 // calibration device parameters
 calibration_arm_x_offset = 140;

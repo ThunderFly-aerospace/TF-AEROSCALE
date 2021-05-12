@@ -10,6 +10,11 @@ use <./src/888_5006.scad>
 use <./src/888_5007.scad>
 use <./src/888_5008.scad>
 use <./src/888_5009.scad>
+use <./src/888_5010.scad>
+use <./src/888_5011.scad>
+use <./src/888_5012.scad>
+use <./src/888_5013.scad>
+use <./src/888_5014.scad>
 use <./src/888_1001.scad>
 use <./src/888_1002.scad>
 use <./src/888_1003.scad>
@@ -51,11 +56,11 @@ translate([-base_length/2, -base_width/2+ALU_profile_width*2-ALU_profile_holder_
 rotate([0, 90, 0])
 ALU_profile(height=base_length);
 
-translate([-base_length/2-ALU_profile_width/2, -500/2, ALU_profile_width/2])
+translate([-base_length/2-ALU_profile_width/2, -base_length/2, ALU_profile_width/2])
 rotate([0, 90, 90])
 ALU_profile(height=base_length);
 
-translate([base_length/2+ALU_profile_width/2, -500/2, ALU_profile_width/2])
+translate([base_length/2+ALU_profile_width/2, -base_length/2, ALU_profile_width/2])
 rotate([0, 90, 90])
 ALU_profile(height=base_length);
 
@@ -64,10 +69,25 @@ tenzometer();
 
 // car attachment point
 translate([0, 24.8, 0])
-rotate([0, 0 ,0])
+rotate([0, 0, 0])
 color([0, 1, 1])
 888_3007();
 
+//box
+translate([mid_base_length/2, -base_length/2+3, ALU_profile_width])
+rotate([0, 0, 180])
+color([0, 1, 1])
+888_5014_back();
+
+translate([mid_base_length/2-150, -base_length/2+3, ALU_profile_width])
+rotate([0, 0, 180])
+color([0, 1, 1])
+888_5014_front();
+
+translate([mid_base_length/2+ALU_profile_width/2, -base_length/2+3+electro_box_width+ALU_profile_width, ALU_profile_width+3])
+rotate([0, 0, 180])
+color([0, 1, 1])
+#cube([electro_box_length, electro_box_width, electro_box_height]);
 
 // front pillar //////////////////////////////////////////////////////
 translate([-base_length/2-ALU_profile_width/2, 0, ALU_profile_width])

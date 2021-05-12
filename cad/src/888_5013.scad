@@ -13,19 +13,19 @@ module 888_5013() {
             translate([1, 0, 15/2])
             cube([2, 20, 15], center=true);
             
-            translate([-1, 0, 0])
-            difference() {
-                cylinder(d=16, h=15, $fn=50);
-                
-                translate([0, 0, -1])
-                cylinder(d=13, h=17, $fn=50);
-                
-                translate([-20+2, -10, -1])
-                cube([20, 20, 17]);
-                
-                translate([-20+4, -20, -1])
-                cube([20, 20, 17]);
-            }
+//            translate([-1, 0, 0])
+//            difference() {
+//                cylinder(d=16, h=15, $fn=50);
+//                
+//                translate([0, 0, -1])
+//                cylinder(d=13, h=17, $fn=50);
+//                
+//                translate([-20+2, -10, -1])
+//                cube([20, 20, 17]);
+//                
+//                translate([-20+4, -20, -1])
+//                cube([20, 20, 17]);
+//            }
         }
         
         translate([-5/2, 0, 16/2-.01])
