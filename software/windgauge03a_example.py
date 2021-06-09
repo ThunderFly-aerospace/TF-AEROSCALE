@@ -59,10 +59,10 @@ windgauge.reset()
 windgauge.initialize()
 time.sleep(0.1)
 
-counter = cfg.get_device("rtc01")
-counter.set_config(counter.FUNCT_MODE_count)
-counter.reset_counter()
-signalPerRound=16
+#counter = cfg.get_device("rtc01")
+#counter.set_config(counter.FUNCT_MODE_count)
+#counter.reset_counter()
+#signalPerRound=16
 
 
 time.sleep(0.1)
@@ -121,34 +121,13 @@ gps_raw = ""
 first = True
 
 lastTime=time.time();
-lastCount=counter.get_count();
+#lastCount=counter.get_count();
+lastCount=0
 
 
 while True:
 
     try:
-
-        if serialPort is not None:
-
-
-            if first:
-                while gps_raw.find('VTG') < 0 :
-                    gps_raw = serialPort.readline()
-                    if (gps_raw.find('VTG') > 0):
-                        break
-
-            if (serialPort.inWaiting()>0 and not first): #if incoming bytes are waiting to be read from the serial input buffer
-                gps_raw = serialPort.readline(serialPort.inWaiting())
-
-
-            first = False
-
-            if gps_raw.find('VTG') > 0:
-                gps_parsed = pynmea2.parse(gps_raw)
-                gps_tt = gps_parsed.true_track
-                gps_sogk = gps_parsed.spd_over_grnd_kmph
-                gps_parsed = pynmea2.parse(serialPort.readline())
-                gps_ts = gps_parsed.timestamp
 
         if error == True:
             windgauge.reset()
@@ -166,43 +145,35 @@ while True:
 
         # sys.stdout.write("%8.2f; %8.2f; %8.2f;           " % windgauge.get_mag())
 
-        mag_hdg_comp = windgauge.get_mag_hdg()
-        new_hdg = mag_hdg_comp
-        hdg_ma, hdg_vect, prev_hdg_ma = heading_ma(new_hdg, hdg_vect, ma_len, prev_hdg_ma)
+        #print("get mag:\n")
+        #mag_hdg_comp = windgauge.get_mag_hdg()
+        #new_hdg = mag_hdg_comp
+        #hdg_ma, hdg_vect, prev_hdg_ma = heading_ma(new_hdg, hdg_vect, ma_len, prev_hdg_ma)
 
-        dp, spd_from_dp = windgauge.get_dp_spd()
+        hdg_ma=0;
+
+        #print("get dp:\n")
+        #dp, spd_from_dp = windgauge.get_dp_spd()
         temp = windgauge.get_temp()
+        dp=0;
+        spd_from_dp=0
 
         ts = datetime.datetime.utcfromtimestamp(time.time()).isoformat()
 
+        print("get rpm:\n")
         currentTime=time.time();
-        currentCount=counter.get_count();
+        currentCount=0
+        #currentCount=counter.get_count();
         rpm=(currentCount-lastCount)/signalPerRound/(currentTime-lastTime)*60;
         lastTime=currentTime;
         lastCount=currentCount;
 
-        # print ("Heading: %6.2f [deg]; Diff. P: %7.2f [Pa]; Speed from diff. P: %5.2f [km/h]" % (hdg_ma, dp, spd_from_dp))
-        if serialPort is not None:
-            if(gps_ts is None):
-                gps_ts = ""
-            if(gps_sogk is None):
-                gps_sogk = ""
-            if(gps_tt is None):
-                gps_tt = ""
-            msg = ("%d;%s;%0.2f;%0.2f;%0.2f;%0.3f;%s;%s;%s\n"% (log_index, ts, dp, hdg_ma, spd_from_dp, temp, gps_ts, gps_tt, gps_sogk))
-            # print(msg)
-            log_file.write(msg)
-            sys.stdout.write("%s; %s; Dp: %+4.2f [Pa]; T: %2.3f [degC];" % (str(log_index).zfill(4), ts, dp, temp))
-            sys.stdout.write(" GPS_TS: %s; GPS_HDG: %s [deg]; GPS_SOG: %s [km/h]\n" % (gps_ts, gps_tt, gps_sogk))
-            sys.stdout.write("      MAG_HDG: %+4.2f; SPD_W_DP: %+4.2f [km/h]\n" % (hdg_ma, spd_from_dp))
-            sys.stdout.flush()
-        else:
-            msg = ("%d;%s;%0.2f;%0.2f;%0.2f;%0.3f;%0.3f\n"% (log_index, ts, dp, hdg_ma, spd_from_dp, temp,rpm))
-            sys.stdout.write("%s; %s; Dp: %+4.2f [Pa]; T: %2.3f [degC]; " % (str(log_index).zfill(4), ts, dp, temp))
-            sys.stdout.write("MAG_HDG: %+4.2f; SPD_W_DP: %+4.2f [km/h];" % (hdg_ma, spd_from_dp))
-            sys.stdout.write("RPM: %+4.2f;           \r" % (rpm))
-            sys.stdout.flush()
-            log_file.write(msg)
+        msg = ("%d;%s;%0.2f;%0.2f;%0.2f;%0.3f;%0.3f\n"% (log_index, ts, dp, hdg_ma, spd_from_dp, temp,rpm))
+        sys.stdout.write("%s; %s; Dp: %+4.2f [Pa]; T: %2.3f [degC]; " % (str(log_index).zfill(4), ts, dp, temp))
+        sys.stdout.write("MAG_HDG: %+4.2f; SPD_W_DP: %+4.2f [km/h];" % (hdg_ma, spd_from_dp))
+        sys.stdout.write("RPM: %+4.2f;           \r" % (rpm))
+        sys.stdout.flush()
+        log_file.write(msg)
 
         log_index += 1
 
