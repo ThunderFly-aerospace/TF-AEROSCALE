@@ -8,6 +8,7 @@ import sys
 import time
 import datetime
 import threading
+import os
 from pymlab import config
 
 from BRIDGEADC01 import BRIDGEADC01
@@ -145,9 +146,24 @@ def i2cThreadFunc():
 thread = threading.Thread(target=i2cThreadFunc)
 thread.start()
 
+#logging
+home =  os.path.expanduser("~")
+path = home + "/TF-Aeroscale_logs/"
+try:
+    os.makedirs(path)
+except OSError:
+    print("")
+else:
+    print ("Successfully created the directory %s\n" % path)
 
-sys.stdout.write("datetime; freq; scale1; scale2; rpm;\n")
-sys.stdout.flush()
+log_name = ("TF_aeroscale_log_%s.csv" % datetime.datetime.utcfromtimestamp(time.time()).isoformat())
+filepath = path + log_name
+log_file = open(filepath, "w")
+print ("Using logfile %s\n" % filepath)
+
+log_file.write(  "           system_datetime;  freq ;  scale1;  scale2;   rpm;  dp[Pa];  spd[m/s];   T[C];\n")
+sys.stdout.write("           system_datetime;  freq ;  scale1;  scale2;   rpm;  dp[Pa];  spd[m/s];   T[C];\n")
+sys.stdout.flush() 
 
 try:
     scale1.startConntinuousConversion(0)
@@ -168,7 +184,8 @@ try:
         if w1d and w2d:
               currentTime=time.time();
               ts = datetime.datetime.utcfromtimestamp(time.time()).isoformat()
-              sys.stdout.write("%s; %4.1f; %+4.3f;%+4.3f;%4.0f;%4.1f,%4.1f,%3.1f\r" %(ts, 1/(currentTime-lastTime), w1,w2,rpm,dp,windgauge_spd,temp))
+              sys.stdout.write("%s;  %04.1f;  %06.3f;  %06.3f;  %04.0f;  %06.1f;      %04.1f;   %04.1f\r" %(ts, 1/(currentTime-lastTime), w1,w2,rpm,dp,windgauge_spd,temp))
+              log_file.write("%s;  %04.1f;  %06.3f;  %06.3f;  %04.0f;  %06.1f;      %04.1f;   %04.1f\n" %(ts, 1/(currentTime-lastTime), w1,w2,rpm,dp,windgauge_spd,temp))
               sys.stdout.flush()
               lastTime=currentTime
               w1d=False
@@ -176,5 +193,6 @@ try:
 
 except KeyboardInterrupt:
     running=0
+    log_file.close()
     thread.join()
     sys.exit(0)
