@@ -184,8 +184,8 @@ try:
         if w1d and w2d:
               currentTime=time.time();
               ts = datetime.datetime.utcfromtimestamp(time.time()).isoformat()
-              sys.stdout.write("%s;  %04.1f;  %06.3f;  %06.3f;  %04.0f;  %06.1f;      %04.1f;   %04.1f\r" %(ts, 1/(currentTime-lastTime), w1,w2,rpm,dp,windgauge_spd,temp))
-              log_file.write("%s;  %04.1f;  %06.3f;  %06.3f;  %04.0f;  %06.1f;      %04.1f;   %04.1f\n" %(ts, 1/(currentTime-lastTime), w1,w2,rpm,dp,windgauge_spd,temp))
+              sys.stdout.write("%s;  %04.1f;  %06.3f;  %06.3f;  %04.0f;  %06.1f;      %04.1f;   %04.1f;\r" %(ts, 1/(currentTime-lastTime), w1,w2,rpm,dp,windgauge_spd,temp))
+              log_file.write(  "%s;  %04.1f;  %06.3f;  %06.3f;  %04.0f;  %06.1f;      %04.1f;   %04.1f;\n" %(ts, 1/(currentTime-lastTime), w1,w2,rpm,dp,windgauge_spd,temp))
               sys.stdout.flush()
               lastTime=currentTime
               w1d=False
