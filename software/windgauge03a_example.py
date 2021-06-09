@@ -59,10 +59,10 @@ windgauge.reset()
 windgauge.initialize()
 time.sleep(0.1)
 
-#counter = cfg.get_device("rtc01")
-#counter.set_config(counter.FUNCT_MODE_count)
-#counter.reset_counter()
-#signalPerRound=16
+counter = cfg.get_device("rtc01")
+counter.set_config(counter.FUNCT_MODE_count)
+counter.reset_counter()
+signalPerRound=16
 
 
 time.sleep(0.1)
@@ -121,7 +121,7 @@ gps_raw = ""
 first = True
 
 lastTime=time.time();
-#lastCount=counter.get_count();
+lastCount=counter.get_count();
 lastCount=0
 
 
@@ -153,17 +153,17 @@ while True:
         hdg_ma=0;
 
         #print("get dp:\n")
-        #dp, spd_from_dp = windgauge.get_dp_spd()
+        dp, spd_from_dp = windgauge.get_dp_spd()
         temp = windgauge.get_temp()
-        dp=0;
-        spd_from_dp=0
+        #dp=0;
+        #spd_from_dp=0
 
         ts = datetime.datetime.utcfromtimestamp(time.time()).isoformat()
 
         print("get rpm:\n")
         currentTime=time.time();
-        currentCount=0
-        #currentCount=counter.get_count();
+        #currentCount=0
+        currentCount=counter.get_count();
         rpm=(currentCount-lastCount)/signalPerRound/(currentTime-lastTime)*60;
         lastTime=currentTime;
         lastCount=currentCount;

@@ -57,10 +57,10 @@ cfg=config.Config(
             "device": "smbus",
         },
         bus = [
-#            {
-#                "name":        "windgauge",
-#                "type":        "WINDGAUGE03A",
-#            },
+            {
+                "name":        "windgauge",
+                "type":        "WINDGAUGE03A",
+            },
             {
                "name": "rtc01",
                "type": "rtc01",
@@ -107,12 +107,27 @@ counter = cfg.get_device("rtc01")
 counter.set_config(counter.FUNCT_MODE_count)
 counter.reset_counter()
 signalPerRound=16
+time.sleep(0.1)
+
+#Diff Preasure reading
+windgauge = cfg.get_device("windgauge")
+windgauge.reset()
+windgauge.initialize()
+time.sleep(0.1)
+
 
 rpm=0
+dp=0.0
+windgauge_spd=0.0
+temp=0.0
+
 #rpm_accuracny=0
 running=1
-def threadFunc():
+def i2cThreadFunc():
     global rpm
+    global dp
+    global windgauge_spd
+    global temp
     global running
     lastTime=time.time()
     lastCount=0
@@ -123,9 +138,11 @@ def threadFunc():
         #rpm_accurancy=60/signalPerRound/(currentTime-lastTime)
         lastTime=currentTime
         lastCount=currentCount
+        dp, windgauge_spd = windgauge.get_dp_spd()
+        temp = windgauge.get_temp()
         time.sleep(0.1)
 
-thread = threading.Thread(target=threadFunc)
+thread = threading.Thread(target=i2cThreadFunc)
 thread.start()
 
 
@@ -151,7 +168,7 @@ try:
         if w1d and w2d:
               currentTime=time.time();
               ts = datetime.datetime.utcfromtimestamp(time.time()).isoformat()
-              sys.stdout.write("%s; %4.1f; %+4.3f;%+4.3f;%4.0f\n" %(ts, 1/(currentTime-lastTime), w1,w2,rpm))
+              sys.stdout.write("%s; %4.1f; %+4.3f;%+4.3f;%4.0f;%4.1f,%4.1f,%3.1f\r" %(ts, 1/(currentTime-lastTime), w1,w2,rpm,dp,windgauge_spd,temp))
               sys.stdout.flush()
               lastTime=currentTime
               w1d=False
