@@ -1,0 +1,4 @@
+TF_G2_rotor_adapter.scad: \
+	../parameters.scad \
+	../src/TF_G2_rotor_adapter.scad \
+	../src/lib/rotor_joint.scad \

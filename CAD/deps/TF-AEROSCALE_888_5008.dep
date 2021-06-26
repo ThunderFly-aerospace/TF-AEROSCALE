@@ -1,0 +1,5 @@
+888_5008.scad: \
+	../parameters.scad \
+	../src/888_5008.scad \
+	../src/lib/ALU_joint_B.scad \
+	../src/lib/rotor_joint.scad \
