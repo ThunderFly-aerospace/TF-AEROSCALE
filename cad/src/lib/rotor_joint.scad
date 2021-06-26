@@ -31,8 +31,6 @@ module screw_nut_hole(thickness=20) {
 }
 
 module rotor_joint(mode, thickness=10) {
-    //screw_nut_hole(thickness=thickness);
-
     difference() {
         rotor_joint_plate(thickness=thickness);
 

@@ -1,3 +1,5 @@
+//@set_slicing_config(../slicing/default.ini)
+
 include <../parameters.scad>
 use <../src/TF_G2_rotor_adapter.scad>
 
