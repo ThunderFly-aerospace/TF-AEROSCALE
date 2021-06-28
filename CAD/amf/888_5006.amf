@@ -28892,16 +28892,6 @@
      <v3>2087</v3>
     </triangle>
     <triangle>
-     <v1>1914</v1>
-     <v2>1986</v2>
-     <v3>1387</v3>
-    </triangle>
-    <triangle>
-     <v1>1387</v1>
-     <v2>1986</v2>
-     <v3>1388</v3>
-    </triangle>
-    <triangle>
      <v1>1985</v1>
      <v2>1389</v2>
      <v3>1986</v3>
@@ -28909,6 +28899,16 @@
     <triangle>
      <v1>1986</v1>
      <v2>1389</v2>
+     <v3>1388</v3>
+    </triangle>
+    <triangle>
+     <v1>1914</v1>
+     <v2>1986</v2>
+     <v3>1387</v3>
+    </triangle>
+    <triangle>
+     <v1>1387</v1>
+     <v2>1986</v2>
      <v3>1388</v3>
     </triangle>
     <triangle>
@@ -31892,16 +31892,6 @@
      <v3>1587</v3>
     </triangle>
     <triangle>
-     <v1>1886</v1>
-     <v2>1743</v2>
-     <v3>1793</v3>
-    </triangle>
-    <triangle>
-     <v1>1793</v1>
-     <v2>1743</v2>
-     <v3>1779</v3>
-    </triangle>
-    <triangle>
      <v1>1791</v1>
      <v2>1793</v2>
      <v3>1771</v3>
@@ -31909,6 +31899,16 @@
     <triangle>
      <v1>1771</v1>
      <v2>1793</v2>
+     <v3>1779</v3>
+    </triangle>
+    <triangle>
+     <v1>1886</v1>
+     <v2>1743</v2>
+     <v3>1793</v3>
+    </triangle>
+    <triangle>
+     <v1>1793</v1>
+     <v2>1743</v2>
      <v3>1779</v3>
     </triangle>
     <triangle>
