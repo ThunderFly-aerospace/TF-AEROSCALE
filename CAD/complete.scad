@@ -15,6 +15,7 @@ use <./src/888_5011.scad>
 use <./src/888_5012.scad>
 use <./src/888_5013.scad>
 use <./src/888_5014.scad>
+use <./src/888_5015.scad>
 use <./src/888_1001.scad>
 use <./src/888_1002.scad>
 use <./src/888_1003.scad>
@@ -183,11 +184,16 @@ translate([0, 0, ALU_profile_width+mid_base_height])
 color([0, 1, 1])
 888_5006(side=1);
 
-// rotor joint mekanism    
+// rotor joint mekanism
 translate([0, 0, ALU_profile_width+mid_base_height+35])
 rotate([0, 0, 0])
 color([0, 1, 1])
 888_5007();
+
+translate([0, 0, ALU_profile_width+mid_base_height+35])
+rotate([0, 0, 0])
+color([0, 1, 1])
+888_5015();
     
 translate([(608_bearing_outer_diameter+10+ALU_profile_width)/2+ALU_profile_holder_wall_thickness+15, 0, 70+(608_bearing_outer_diameter+10+5)/2+tower_height+mid_base_height+35+ALU_profile_width-12])
 rotate([180, 0, 90])
@@ -200,7 +206,7 @@ color([0, 1, 1])
 888_5009();
 
 // drag strain gauge attachment point
-translate([-ALU_profile_width/2-ALU_profile_holder_wall_thickness*2+strain_gauge_width+4, 0, tower_height-strain_gauge_length/2-tower_drag_z_offset/2+2+mid_base_height+ALU_profile_width*2+ALU_profile_holder_wall_thickness*2])
+translate([-ALU_profile_width/2-ALU_profile_holder_wall_thickness*2+strain_gauge_width+6, 0, tower_height-strain_gauge_length/2-tower_drag_z_offset/2+2+mid_base_height+ALU_profile_width*2+ALU_profile_holder_wall_thickness*2])
 rotate([0, 90, 180])
 tenzometer(mounting_part=false);
 

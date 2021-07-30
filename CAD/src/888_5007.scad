@@ -4,6 +4,7 @@ use <./lib/ALU_profile.scad>
 use <./888_5002.scad>
 use <./888_5005.scad>
 use <./888_5011.scad>
+use <./888_5015.scad>
 
 
 module 888_5007_attachment_points() {
@@ -19,7 +20,7 @@ module 888_5007_attachment_points() {
     ALU_profile(height=tower_arm_length);
     
     // drag attachment point
-    translate([-ALU_profile_width/2-ALU_profile_holder_wall_thickness*2+strain_gauge_width+4, 0, tower_height-strain_gauge_length/2-tower_drag_z_offset/2+2])
+    translate([-ALU_profile_width/2-ALU_profile_holder_wall_thickness*2+strain_gauge_width+6, 0, tower_height-strain_gauge_length/2-tower_drag_z_offset/2+2])
     rotate([0, -90, 0])
     translate([-strain_gauge_length/2, -strain_gauge_width/2, 0])
     color([0, 0, 1])
@@ -30,16 +31,16 @@ module 888_5007(print_plate=false) {
     union() {
         difference() {
             hull() {
-                translate([-ALU_profile_width/2-ALU_profile_holder_wall_thickness*2, -mid_base_width/2+ALU_profile_width, 0])
+                translate([-ALU_profile_width/2+.01, -mid_base_width/2+ALU_profile_width, 0])
                 rotate([-tower_angle, 0 ,0])
                 translate([0, -ALU_profile_width*0.5-ALU_profile_width/2-ALU_profile_holder_wall_thickness ,tower_arm_length-ALU_profile_width*1.5-0.01])
-                cube([ALU_profile_width+ALU_profile_holder_wall_thickness*4, ALU_profile_width+ALU_profile_holder_wall_thickness*2, ALU_profile_width*1.5+ALU_profile_holder_wall_thickness*3]);
+                cube([ALU_profile_width+ALU_profile_holder_wall_thickness*2, ALU_profile_width+ALU_profile_holder_wall_thickness*2, ALU_profile_width*1.5+ALU_profile_holder_wall_thickness*3]);
                 
                 
-                translate([-ALU_profile_width/2-ALU_profile_holder_wall_thickness*2, mid_base_width/2-ALU_profile_width, 0])
+                translate([-ALU_profile_width/2+.01, mid_base_width/2-ALU_profile_width, 0])
                 rotate([tower_angle, 0 ,0])
                 translate([0, -ALU_profile_width*0.5+ALU_profile_width/2-ALU_profile_holder_wall_thickness ,tower_arm_length-ALU_profile_width*1.5-0.01])
-                cube([ALU_profile_width+ALU_profile_holder_wall_thickness*4, ALU_profile_width+ALU_profile_holder_wall_thickness*2, ALU_profile_width*1.5+ALU_profile_holder_wall_thickness*3]);
+                cube([ALU_profile_width+ALU_profile_holder_wall_thickness*2, ALU_profile_width+ALU_profile_holder_wall_thickness*2, ALU_profile_width*1.5+ALU_profile_holder_wall_thickness*3]);
             }
             
             // profile arm cutter
@@ -94,24 +95,56 @@ module 888_5007(print_plate=false) {
             cylinder(h=ALU_profile_width, d=M6_screw_diameter, $fn=50);
             
             // drag tenzometer attachment point
-            translate([0, 0, tower_height-tower_drag_z_offset+strain_gauge_screw_distance/2])
-            rotate([90, 0, -90])
-            cylinder(h=ALU_profile_width, d=M4_screw_diameter, $fn=50);
-            
-            translate([0, 0, tower_height-tower_drag_z_offset-strain_gauge_screw_distance/2])
-            rotate([90, 0, -90])
-            cylinder(h=ALU_profile_width, d=M4_screw_diameter, $fn=50);
-            
-            translate([-ALU_profile_width/2-ALU_profile_holder_wall_thickness*2+strain_gauge_width+4+2, 0, tower_height-strain_gauge_length/2-tower_drag_z_offset/2+2])
+            translate([-ALU_profile_width/2-ALU_profile_holder_wall_thickness*2+strain_gauge_width+6+2, -1, tower_height-strain_gauge_length/2-tower_drag_z_offset/2+5])
             rotate([0, -90, 0])
             translate([-strain_gauge_length/2, -strain_gauge_width/2-2, 0])
-            cube([strain_gauge_length, strain_gauge_width+4, strain_gauge_width+2]);
+            cube([strain_gauge_length, strain_gauge_width+6, strain_gauge_width+2]);
+            
+            // 888_5015 attachment points
+            translate([0, 20, tower_height-22])
+            rotate([90, 0, -90])
+            union() {
+                cylinder(h=ALU_profile_width, d=M6_screw_diameter, $fn=50);
+                
+                translate([0, 0, 2])
+                cylinder(h=10, d=M6_nut_diameter, $fn=6);
+            }
+            
+            translate([0, -20, tower_height-22])
+            rotate([90, 0, -90])
+            union() {
+                cylinder(h=ALU_profile_width, d=M6_screw_diameter, $fn=50);
+                
+                translate([0, 0, 2])
+                cylinder(h=10, d=M6_nut_diameter, $fn=6);
+            }
             
             
+            
+            
+            adjustment_screw_holes_width = 31;
+            adjustment_screw_holes_offset = ALU_profile_width/2-ALU_profile_holder_wall_thickness*2;
+            
+            // angle adjustment screws holes for NEMA 17
+            translate([0, adjustment_screw_holes_width/2, tower_height+20.25])
+            rotate([0, 90, 0])
+            union() {
+                translate([0, 0, -ALU_profile_width/2])
+                cylinder(h=ALU_profile_width*2, d=M3_screw_diameter, $fn=50);
+                
+                cylinder(h=ALU_profile_width*2, d=M3_nut_diameter, $fn=50);
+            }
+            
+            translate([0, -adjustment_screw_holes_width/2, tower_height+20.25])
+            rotate([0, 90, 0])
+            union() {
+                translate([0, 0, -ALU_profile_width/2])
+                cylinder(h=ALU_profile_width*2, d=M3_screw_diameter, $fn=50);
+                
+                cylinder(h=ALU_profile_width*2, d=M3_nut_diameter, $fn=50);
+            }
             
             // angle adjustment screws holes
-            adjustment_screw_holes_width = 34;
-            adjustment_screw_holes_offset = ALU_profile_width/2-ALU_profile_holder_wall_thickness;
             
             translate([-adjustment_screw_holes_offset, adjustment_screw_holes_width/2, tower_height+18])
             union() {
@@ -172,8 +205,20 @@ module 888_5007(print_plate=false) {
                 888_5011();
             }
         }
+        
+        // angle arrow
+        translate([ALU_profile_width/2+5, ALU_profile_width/2+5, tower_height-12])
+        hull() {
+            cube([15, 2, 0.1]);
+            
+            translate([0, 0, -5])
+            cube([1, 10, 10]);
+        }
     }   
 }
 
 888_5007();
+
 #888_5007_attachment_points();
+
+#888_5015();

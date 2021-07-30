@@ -35,13 +35,22 @@ module 888_5008(print_plate=false) {
             cube([ALU_profile_width+ALU_profile_holder_wall_thickness*2, ALU_profile_width+ALU_profile_holder_wall_thickness*2, ALU_profile_holder_wall_thickness]);
         }
         
-        
         translate([-ALU_profile_width/2-ALU_profile_holder_wall_thickness-1, 0, 0])
         rotate([0, 90, 0])
         cylinder(d=M8_screw_diameter, h=ALU_profile_width+ALU_profile_holder_wall_thickness*2+2, $fn=20);
             
         translate([-26/2-M6_washer_thickness, -ALU_profile_width, -(608_bearing_outer_diameter+10+5+5)/2])
         cube([26+M6_washer_thickness*2, ALU_profile_width*2, 608_bearing_outer_diameter+10+5+5]);
+        
+        for(i=[-90:5:90]) {
+            rotate([i, 0, 0])
+            translate([ALU_profile_width/2+ALU_profile_holder_wall_thickness-0.5, -17, 0])
+            if (i%30==0) {
+                cube([3, 8, 0.5]);
+            } else {
+                cube([3, 5, 0.5]);
+            }
+        }
     }
     
     if (!print_plate) {
