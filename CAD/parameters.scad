@@ -201,3 +201,9 @@ electro_box_height = 51.5;
 // calibration device parameters
 calibration_arm_x_offset = 140;
 calibration_arm_y_offset = 50;
+
+// rotor paramters
+rotor_blades_count = 2;
+rotor_delta_angle = 12;
+blade_mount_screw = M3_screw_diameter;
+blade_mount_nut = M3_nut_diameter;
