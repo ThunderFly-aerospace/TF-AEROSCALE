@@ -72,9 +72,9 @@ module TF_G2_rotor_adapter(){
             
             translate([5.01, 0, -motor_distance ])
             rotate([0,-90,0]){
-                #for (i=[[0,1],[0,-1],[1,0], [-1,0]]) {
+                for (i=[[0,1],[0,-1],[1,0], [-1,0]]) {
                     translate([i[0]*motor_mounting_diameter/2, i[1]*motor_mounting_diameter/2, 0]){
-                        translate([0,0,M3_screw_head_height])
+                        translate([0,0,M3_screw_head_height-0.1])
                             cylinder(d = motor_screw_diameter, h = motor_sink-M3_screw_head_height , $fn =  50);
                         cylinder(d = M3_nut_diameter, h = M3_screw_head_height, $fn = 50);
                     }
@@ -109,6 +109,16 @@ module TF_G2_rotor_adapter(){
     cube([TFPROBE01_PCB_thickness, TFPROBE01_PCB_width, rod_y_distance]);
 
     }
+    
+    //podpora pro tisk
+    translate([0, 0, -bearing_outer_diameter/2 - Bwall])
+    translate([-14.5-0.1,0,-motor_distance])
+    rotate([0,90,0])
+        difference(){
+            cylinder(d=motor_puller_diameter+1, h=14.5+5-motor_sink);
+            translate([0,0,-0.1])
+            cylinder(d=motor_puller_diameter, h=14.5+5-motor_sink+0.2);
+        }
 }
 
 TF_G2_rotor_adapter();
