@@ -182,27 +182,46 @@ module 888_5007(print_plate=false) {
             }
             
             // main rotor attachment point
-            translate([(608_bearing_outer_diameter+10+ALU_profile_width)/2+ALU_profile_holder_wall_thickness+15, 26/2, tower_height-12])
+            translate([(608_bearing_outer_diameter+10+ALU_profile_width)/2+ALU_profile_holder_wall_thickness+15, (26+20)/2, tower_height-12])
             rotate([0, 90, -90])
             union() {
                 difference() {
                     hull() {
                         translate([-(608_bearing_outer_diameter+10+11)/2-1.5, -(608_bearing_outer_diameter+10)/2-15, 0])
-                        cube([608_bearing_outer_diameter+10+11, 3, 26]);
-                        cylinder(h=26, d=608_bearing_outer_diameter+10, $fn=100);
+                        cube([608_bearing_outer_diameter+10+11, 3, 26+20]);
+                        cylinder(h=26+20, d=608_bearing_outer_diameter+10, $fn=100);
                     }
-                    translate([0, 0, -5])
-                    cylinder(h=26+10, d=M6_screw_diameter+10, $fn=100);
                     
-                    translate([0, 0, -.01])
+                    translate([-25, -18.1, 0])
+                    union() {
+                        rotate([0, 90, 0])
+                        cylinder(h=50, d=20, $fn=30);
+                        
+                        translate([0, 0, -10])
+                        cube([50, 50, 20]);
+                    }
+                    
+                    translate([-25, -18.1, 26+20])
+                    union() {
+                        rotate([0, 90, 0])
+                        cylinder(h=50, d=20, $fn=30);
+                        
+                        translate([0, 0, -10])
+                        cube([50, 50, 20]);
+                    }
+                    
+                    translate([0, 0, -5])
+                    cylinder(h=26+30, d=M6_screw_diameter+10, $fn=100);
+                    
+                    translate([0, 0, -.01-10])
                     cylinder(h=608_bearing_thickness, d=608_bearing_outer_diameter, $fn=100);
                     
-                    translate([0, 0, 26-608_bearing_thickness+.01])
+                    translate([0, 0, 26-608_bearing_thickness+10+.01])
                     cylinder(h=608_bearing_thickness, d=608_bearing_outer_diameter, $fn=100);
                 }
             
                 if(!print_plate) {
-                    translate([0, 0, 608_bearing_thickness])
+                    translate([0, 0, 608_bearing_thickness+10])
                     888_5011();
                 }
             }
