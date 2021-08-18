@@ -6222,16 +6222,6 @@
      <v3>198</v3>
     </triangle>
     <triangle>
-     <v1>216</v1>
-     <v2>323</v2>
-     <v3>321</v3>
-    </triangle>
-    <triangle>
-     <v1>202</v1>
-     <v2>216</v2>
-     <v3>321</v3>
-    </triangle>
-    <triangle>
      <v1>202</v1>
      <v2>321</v2>
      <v3>320</v3>
@@ -6240,6 +6230,16 @@
      <v1>200</v1>
      <v2>202</v2>
      <v3>320</v3>
+    </triangle>
+    <triangle>
+     <v1>216</v1>
+     <v2>323</v2>
+     <v3>321</v3>
+    </triangle>
+    <triangle>
+     <v1>202</v1>
+     <v2>216</v2>
+     <v3>321</v3>
     </triangle>
     <triangle>
      <v1>215</v1>
