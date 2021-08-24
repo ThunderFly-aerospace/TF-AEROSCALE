@@ -238,11 +238,13 @@ module 888_5007(print_plate=false) {
         
         translate([15, -20/2, tower_height-25])
         difference() {
-            cube([20, 20, 25]);
+            cube([18, 18, 25]);
             
-            translate([-0.5, 0.25, 0.25])
-            cube([21, 19.5, 24.5]);
+            translate([-1, 0.25, 0.25])
+            cube([22, 17.5, 24.5]);
         }
+        
+//        cube([500, 20, 500]);
     }
 }
 
