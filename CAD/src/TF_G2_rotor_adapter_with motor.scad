@@ -43,47 +43,51 @@ module TF_G2_rotor_adapter(){
 
     bearing_shaft_shift = ((rod_size/2 + BaseThickness + M3_screw_diameter/2 + space)/tan(rotor_shaft_angle)) - bearing_shaft_length - rotor_plane_space;
 
+    top=(bearing_outer_diameter+5-rod_size/2-7);
+    bottom=-(12+2.5);
+    h1=top-bottom;
+
     translate([0, 0, -bearing_outer_diameter/2 - Bwall])
     difference(){
     union(){
         translate([-rod_size/2, 0, bearing_outer_diameter/2 + Bwall]) rotate([0, 90, 0])
         cylinder(d = bearing_outer_diameter + Bwall*2, h = bearing_shaft_length + bearing_shaft_shift + rod_size/2);
-        
-        
+                
         difference() {
             hull() {
                 translate([-rod_size/2-7, -12.5, -BaseThickness-5])
-                cube([bearing_outer_diameter+5, 25, 35]);
+                    cube([bearing_outer_diameter+5, 25, 35]);
                 
                 translate([-12, 0, bearing_outer_diameter/2 + Bwall])
-                rotate([0, 90, 0])
-                rotor_joint_plate(thickness=5);
+                    rotate([0, 90, 0])
+                        rotor_joint_plate(thickness=5);
                 
-                translate([-14.5,0,-motor_distance])
+                h1=(bearing_outer_diameter+5-rod_size/2-7)+(12+2.5);
+                translate([bottom,0,-motor_distance])
                     rotate([0,90,0])
-                        cylinder(d=motor_diameter+5,h=14.5+5);
+                        cylinder(d=motor_diameter+5,h=h1);
             }
-            translate([-14.5-0.1,0,-motor_distance])
+            translate([bottom-0.1,0,-motor_distance])
                 rotate([0,90,0])
                     cylinder(d1=motor_diameter+4, d2=motor_diameter, h= 14.5+5-motor_sink);
             translate([-25,0,-motor_distance])
                 rotate([0,90,0])            
                     cylinder(d=motor_puller_diameter, h= 50);
             
-            translate([5.01, 0, -motor_distance ])
+            translate([top+0.01, 0, -motor_distance ])
             rotate([0,-90,0]){
                 for (i=[[0,1],[0,-1],[1,0], [-1,0]]) {
                     translate([i[0]*motor_mounting_diameter/2, i[1]*motor_mounting_diameter/2, 0]){
                         translate([0,0,M3_screw_head_height-0.1])
                             cylinder(d = motor_screw_diameter, h = motor_sink-M3_screw_head_height , $fn =  50);
-                        cylinder(d = M3_nut_diameter, h = M3_screw_head_height, $fn = 50);
+                        cylinder(d = M3_nut_diameter, h = M3_screw_head_height+0.5, $fn = 50);
                     }
                 }
             }
             
             translate([-14.5, 0, bearing_outer_diameter/2 + Bwall])
-            rotate([0, 90, 0])
-            rotor_joint_holes(2,10);
+                rotate([0, 90, 0])
+                    rotor_joint_holes(2,10);
         }
     }
 
@@ -112,12 +116,12 @@ module TF_G2_rotor_adapter(){
     
     //podpora pro tisk
     translate([0, 0, -bearing_outer_diameter/2 - Bwall])
-    translate([-14.5-0.1,0,-motor_distance])
+    translate([bottom,0,-motor_distance])
     rotate([0,90,0])
         difference(){
-            cylinder(d=motor_puller_diameter+1, h=14.5+5-motor_sink);
+            cylinder(d=motor_puller_diameter+1, h=-bottom+5-motor_sink);
             translate([0,0,-0.1])
-            cylinder(d=motor_puller_diameter, h=14.5+5-motor_sink+0.2);
+            cylinder(d=motor_puller_diameter, h=-bottom+5-motor_sink+0.2);
         }
 }
 
