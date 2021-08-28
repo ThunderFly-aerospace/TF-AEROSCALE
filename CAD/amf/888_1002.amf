@@ -3530,6 +3530,11 @@
      <z>5.03943</z>
     </coordinates></vertex>
     <vertex><coordinates>
+     <x>-8.25</x>
+     <y>0</y>
+     <z>12.91</z>
+    </coordinates></vertex>
+    <vertex><coordinates>
      <x>-8.23372</x>
      <y>-0.518022</y>
      <z>12.91</z>
@@ -3537,11 +3542,6 @@
     <vertex><coordinates>
      <x>-8.18495</x>
      <y>-1.034</y>
-     <z>12.91</z>
-    </coordinates></vertex>
-    <vertex><coordinates>
-     <x>-8.25</x>
-     <y>0</y>
      <z>12.91</z>
     </coordinates></vertex>
     <vertex><coordinates>
@@ -35554,32 +35554,32 @@
     <triangle>
      <v1>705</v1>
      <v2>706</v2>
+     <v3>559</v3>
+    </triangle>
+    <triangle>
+     <v1>579</v1>
+     <v2>705</v2>
+     <v3>559</v3>
+    </triangle>
+    <triangle>
+     <v1>706</v1>
+     <v2>707</v2>
      <v3>558</v3>
     </triangle>
     <triangle>
      <v1>559</v1>
-     <v2>705</v2>
+     <v2>706</v2>
      <v3>558</v3>
-    </triangle>
-    <triangle>
-     <v1>707</v1>
-     <v2>705</v2>
-     <v3>559</v3>
-    </triangle>
-    <triangle>
-     <v1>579</v1>
-     <v2>707</v2>
-     <v3>559</v3>
     </triangle>
     <triangle>
      <v1>580</v1>
      <v2>708</v2>
-     <v3>707</v3>
+     <v3>705</v3>
     </triangle>
     <triangle>
      <v1>579</v1>
      <v2>580</v2>
-     <v3>707</v3>
+     <v3>705</v3>
     </triangle>
     <triangle>
      <v1>603</v1>
@@ -36542,13 +36542,13 @@
      <v3>561</v3>
     </triangle>
     <triangle>
-     <v1>706</v1>
+     <v1>707</v1>
      <v2>804</v2>
      <v3>560</v3>
     </triangle>
     <triangle>
      <v1>558</v1>
-     <v2>706</v2>
+     <v2>707</v2>
      <v3>560</v3>
     </triangle>
     <triangle>
@@ -37828,7 +37828,7 @@
     </triangle>
     <triangle>
      <v1>804</v1>
-     <v2>706</v2>
+     <v2>707</v2>
      <v3>906</v3>
     </triangle>
     <triangle>
@@ -37992,8 +37992,8 @@
      <v3>989</v3>
     </triangle>
     <triangle>
-     <v1>706</v1>
-     <v2>705</v2>
+     <v1>707</v1>
+     <v2>706</v2>
      <v3>906</v3>
     </triangle>
     <triangle>
@@ -38307,7 +38307,7 @@
      <v3>1005</v3>
     </triangle>
     <triangle>
-     <v1>707</v1>
+     <v1>705</v1>
      <v2>708</v2>
      <v3>906</v3>
     </triangle>
@@ -38557,8 +38557,8 @@
      <v3>1004</v3>
     </triangle>
     <triangle>
-     <v1>705</v1>
-     <v2>707</v2>
+     <v1>706</v1>
+     <v2>705</v2>
      <v3>906</v3>
     </triangle>
     <triangle>

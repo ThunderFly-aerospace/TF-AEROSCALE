@@ -1657,16 +1657,6 @@
      <v3>62</v3>
     </triangle>
     <triangle>
-     <v1>99</v1>
-     <v2>88</v2>
-     <v3>29</v3>
-    </triangle>
-    <triangle>
-     <v1>29</v1>
-     <v2>88</v2>
-     <v3>5</v3>
-    </triangle>
-    <triangle>
      <v1>89</v1>
      <v2>28</v2>
      <v3>88</v3>
@@ -1674,6 +1664,16 @@
     <triangle>
      <v1>88</v1>
      <v2>28</v2>
+     <v3>5</v3>
+    </triangle>
+    <triangle>
+     <v1>99</v1>
+     <v2>88</v2>
+     <v3>29</v3>
+    </triangle>
+    <triangle>
+     <v1>29</v1>
+     <v2>88</v2>
      <v3>5</v3>
     </triangle>
     <triangle>

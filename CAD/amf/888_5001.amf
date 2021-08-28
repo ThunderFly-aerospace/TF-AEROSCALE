@@ -1727,7 +1727,7 @@
     <vertex><coordinates>
      <x>16.1101</x>
      <y>-3.05</y>
-     <z>9.30471</z>
+     <z>10.6953</z>
     </coordinates></vertex>
     <vertex><coordinates>
      <x>16</x>
@@ -1737,7 +1737,7 @@
     <vertex><coordinates>
      <x>16.1101</x>
      <y>-3.05</y>
-     <z>10.6953</z>
+     <z>9.30471</z>
     </coordinates></vertex>
     <vertex><coordinates>
      <x>16.4297</x>
@@ -4967,24 +4967,24 @@
      <v3>240</v3>
     </triangle>
     <triangle>
-     <v1>344</v1>
+     <v1>245</v1>
+     <v2>270</v2>
+     <v3>344</v3>
+    </triangle>
+    <triangle>
+     <v1>345</v1>
+     <v2>245</v2>
+     <v3>344</v3>
+    </triangle>
+    <triangle>
+     <v1>346</v1>
      <v2>249</v2>
      <v3>245</v3>
     </triangle>
     <triangle>
      <v1>345</v1>
-     <v2>344</v2>
+     <v2>346</v2>
      <v3>245</v3>
-    </triangle>
-    <triangle>
-     <v1>245</v1>
-     <v2>270</v2>
-     <v3>346</v3>
-    </triangle>
-    <triangle>
-     <v1>345</v1>
-     <v2>245</v2>
-     <v3>346</v3>
     </triangle>
     <triangle>
      <v1>270</v1>
@@ -4992,7 +4992,7 @@
      <v3>347</v3>
     </triangle>
     <triangle>
-     <v1>346</v1>
+     <v1>344</v1>
      <v2>270</v2>
      <v3>347</v3>
     </triangle>
@@ -5162,7 +5162,7 @@
      <v3>249</v3>
     </triangle>
     <triangle>
-     <v1>344</v1>
+     <v1>346</v1>
      <v2>363</v2>
      <v3>249</v3>
     </triangle>
@@ -5427,7 +5427,7 @@
      <v3>303</v3>
     </triangle>
     <triangle>
-     <v1>346</v1>
+     <v1>344</v1>
      <v2>347</v2>
      <v3>286</v3>
     </triangle>
@@ -5488,7 +5488,7 @@
     </triangle>
     <triangle>
      <v1>363</v1>
-     <v2>344</v2>
+     <v2>346</v2>
      <v3>286</v3>
     </triangle>
     <triangle>
@@ -5548,7 +5548,7 @@
     </triangle>
     <triangle>
      <v1>345</v1>
-     <v2>346</v2>
+     <v2>344</v2>
      <v3>286</v3>
     </triangle>
     <triangle>
@@ -5612,7 +5612,7 @@
      <v3>299</v3>
     </triangle>
     <triangle>
-     <v1>344</v1>
+     <v1>346</v1>
      <v2>345</v2>
      <v3>286</v3>
     </triangle>
