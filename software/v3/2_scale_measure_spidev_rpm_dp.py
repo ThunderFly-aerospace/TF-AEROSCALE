@@ -22,10 +22,12 @@ Show data from TF-AEROSCALE over SPIDEV and I2C on rpi3.
 
 if len(sys.argv) != 2:
     sys.stderr.write("Invalid number of arguments.\n")
-    sys.stderr.write("Usage: %s I2CPORT\n" % (sys.argv[0], ))
+    sys.stderr.write("Usage: %s angle\n" % (sys.argv[0], ))
     sys.exit(1)
 
-i2cport    = sys.argv[1]
+i2cport  = 1
+angle    = float(sys.argv[1])
+
 
 import spidev
 
@@ -156,8 +158,6 @@ except OSError:
     print("")
 else:
     print ("Successfully created the directory %s\n" % path)
-
-angle = float(input("Enter angle btween rotor as and vertical line: "))
 
 log_name = ("TF_aeroscale_log_%.1f_%s.csv" % (angle,datetime.datetime.utcfromtimestamp(time.time()).isoformat()))
 filepath = path + log_name
