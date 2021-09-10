@@ -1,0 +1,5 @@
+888_1001.scad: \
+	../parameters.scad \
+	../src/888_1001.scad \
+	../src/888_1002.scad \
+	../src/888_1003.scad \

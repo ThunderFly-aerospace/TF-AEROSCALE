@@ -1,0 +1,3 @@
+888_5010.scad: \
+	../parameters.scad \
+	../src/888_5010.scad \

@@ -1,0 +1,5 @@
+888_5005.scad: \
+	../parameters.scad \
+	../src/888_5005.scad \
+	../src/888_5010.scad \
+	../src/lib/ALU_profile_holder_side.scad \
