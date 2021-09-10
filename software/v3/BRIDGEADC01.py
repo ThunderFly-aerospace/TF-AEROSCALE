@@ -36,7 +36,7 @@ class BRIDGEADC01:
         self.AD7730_IODISABLE_MODE      =0b0
         self.AD7730_16bitDATA_MODE      =0b0
         self.AD7730_24bitDATA_MODE      =0b1
-        self.AD7730_REFERENCE_2V5       =0b0        
+        self.AD7730_REFERENCE_2V5       =0b0
         self.AD7730_REFERENCE_5V        =0b1
         self.AD7730_10mVIR_MODE         =0b00
         self.AD7730_20mVIR_MODE         =0b01
