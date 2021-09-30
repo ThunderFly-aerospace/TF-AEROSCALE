@@ -50,7 +50,8 @@ class MinimalPublisher(Node):
 
     def __init__(self):
         super().__init__('minimal_weight_publisher')
-        self.publisher_ = self.create_publisher(Float32, 'topic', 10)
+        self.publisher1 = self.create_publisher(Float32, 'weight_1', 10)
+        self.publisher2 = self.create_publisher(Float32, 'weight_2', 10)
         self.spi0 = SPIWraper(0)
         self.spi1 = SPIWraper(1)
 
@@ -85,7 +86,7 @@ class MinimalPublisher(Node):
         self.scale1.startConntinuousConversion(0)
         self.scale2.startConntinuousConversion(0)
 
-        self.timer = self.create_timer(0.002, self.timer_callback)
+        self.timer = self.create_timer(0.001, self.timer_callback)
         self.w1d=False
         self.w2d=False
         self.w1=0.0
@@ -105,20 +106,24 @@ class MinimalPublisher(Node):
         if self.w1d and self.w2d:
             currentTime=time.time();
             ts = datetime.datetime.utcfromtimestamp(time.time()).isoformat()
-            sys.stdout.write("%s;  %04.1f;  %06.3f;  %06.3f;\r" %(ts, 1/(currentTime-self.lastTime), self.w1,self.w2))
-            sys.stdout.flush()
+            #sys.stdout.write("%s;  %04.1f;  %06.3f;  %06.3f;\n" %(ts, 1/(currentTime-self.lastTime), self.w1,self.w2))
+            #sys.stdout.flush()
             self.lastTime=currentTime
             self.w1d=False
             self.w2d=False
 
             msg = Float32()
             msg.data = self.w1
-            self.publisher_.publish(msg)
+            self.publisher1.publish(msg)
+
+            msg2 = Float32()
+            msg2.data = self.w2
+            self.publisher2.publish(msg2)
 
 def main(args=None):
 
-    sys.stdout.write("           system_datetime;  freq ;  scale1;  scale2;\n")
-    sys.stdout.flush()
+    #sys.stdout.write("           system_datetime;  freq ;  scale1;  scale2;\n")
+    #sys.stdout.flush()
 
     rclpy.init(args=args)
     minimal_publisher = MinimalPublisher()
