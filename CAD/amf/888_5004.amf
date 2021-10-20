@@ -3852,16 +3852,6 @@
      <v3>51</v3>
     </triangle>
     <triangle>
-     <v1>285</v1>
-     <v2>286</v2>
-     <v3>18</v3>
-    </triangle>
-    <triangle>
-     <v1>18</v1>
-     <v2>286</v2>
-     <v3>33</v3>
-    </triangle>
-    <triangle>
      <v1>290</v1>
      <v2>32</v2>
      <v3>286</v3>
@@ -3869,6 +3859,16 @@
     <triangle>
      <v1>286</v1>
      <v2>32</v2>
+     <v3>33</v3>
+    </triangle>
+    <triangle>
+     <v1>285</v1>
+     <v2>286</v2>
+     <v3>18</v3>
+    </triangle>
+    <triangle>
+     <v1>18</v1>
+     <v2>286</v2>
      <v3>33</v3>
     </triangle>
     <triangle>
@@ -5862,16 +5862,6 @@
      <v3>351</v3>
     </triangle>
     <triangle>
-     <v1>396</v1>
-     <v2>369</v2>
-     <v3>384</v3>
-    </triangle>
-    <triangle>
-     <v1>384</v1>
-     <v2>369</v2>
-     <v3>376</v3>
-    </triangle>
-    <triangle>
      <v1>395</v1>
      <v2>368</v2>
      <v3>396</v3>
@@ -5880,6 +5870,16 @@
      <v1>396</v1>
      <v2>368</v2>
      <v3>369</v3>
+    </triangle>
+    <triangle>
+     <v1>396</v1>
+     <v2>369</v2>
+     <v3>384</v3>
+    </triangle>
+    <triangle>
+     <v1>384</v1>
+     <v2>369</v2>
+     <v3>376</v3>
     </triangle>
     <triangle>
      <v1>385</v1>
