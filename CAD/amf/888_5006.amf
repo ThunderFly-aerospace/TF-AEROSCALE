@@ -28892,16 +28892,6 @@
      <v3>2089</v3>
     </triangle>
     <triangle>
-     <v1>1914</v1>
-     <v2>1986</v2>
-     <v3>1387</v3>
-    </triangle>
-    <triangle>
-     <v1>1387</v1>
-     <v2>1986</v2>
-     <v3>1388</v3>
-    </triangle>
-    <triangle>
      <v1>1985</v1>
      <v2>1389</v2>
      <v3>1986</v3>
@@ -28909,6 +28899,16 @@
     <triangle>
      <v1>1986</v1>
      <v2>1389</v2>
+     <v3>1388</v3>
+    </triangle>
+    <triangle>
+     <v1>1914</v1>
+     <v2>1986</v2>
+     <v3>1387</v3>
+    </triangle>
+    <triangle>
+     <v1>1387</v1>
+     <v2>1986</v2>
      <v3>1388</v3>
     </triangle>
     <triangle>
