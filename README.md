@@ -30,7 +30,7 @@ Knowledge of aircraft wings is important for optimizing their flight parameters.
 ![Base with strain gauges](doc/img/complete.jpg)
 
 
-# Build
+# Software installation
 
 Repository use git submodules therefore an initialization of repository is needed prior make.
 
